@@ -1,2 +1,2 @@
-# spacetech-caf
-IBM Space Tech - Cognitive Autonomous Framework
+# spacetech-kubesat
+IBM Space Tech - KubeSat, A Cognitive Autonomous Framework
