@@ -1,0 +1,4 @@
+channels:
+  - conda-forge
+dependencies:
+  - orekit==10.1

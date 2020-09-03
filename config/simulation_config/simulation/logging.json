@@ -1,0 +1,6 @@
+{
+    "sender_id": "simulation",
+    "shared_storage": {
+        "log_path": "./"
+    }
+}

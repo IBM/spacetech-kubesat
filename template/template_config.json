@@ -1,0 +1,6 @@
+{
+    "sender_id": "template",
+    "shared_storage": {
+        "test_value": "hello"
+    }
+}

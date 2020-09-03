@@ -1,0 +1,9 @@
+{
+    "sender_id": "simulation",
+    "shared_storage": {
+        "log_path": "./",
+        "current_file_number":0,
+        "current_file_logs":0,
+        "line_threshold": 1500
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "sender_id": "cubesat_1",
+  "shared_storage" : {
+    "phonebook": {
+      "cubesat_1": true,
+      "cubesat_2": true,
+      "cubesat_3": true
+    },
+    "iot_phonebook": {
+      "iot_1": false
+    },
+    "ground_phonebook":{
+      "groundstation_1": false
+    },
+    "packets_received": {
+      "groundstation_1": 0
+    },
+    "buffered_packets": 0,
+    "last_buffered_packets": 0,
+    "mode": "auto",
+    "weights_location": "./saved_weights_simple_scenario/dqn_dataEnv-v0_weights.h5f",
+    "model_location": "./saved_model_simple_scenario",
+    "new_phonebook": true,
+    "new_iot_phonebook": true,
+    "new_ground_phonebook": true
+  }
+}

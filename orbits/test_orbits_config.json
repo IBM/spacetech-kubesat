@@ -1,0 +1,82 @@
+{
+        "sat_phonebook":{"cubesat_2": true, "cubesat_1": true},
+        "iot_phonebook": {"1234": false, "1235": false},
+        "grstn_phonebook":{"durand": false, "1047": false},
+        "swarm":{
+                "cubesat_1":{
+                            "orbit":{
+                                "semimajor_axis": 12742500.0,
+                                "eccentricity": 0.0,
+                                "inclination": 0.78,
+                                "perigee_argument": 1.570796,
+                                "right_ascension_of_ascending_node": 0.0,
+                                "anomaly": 1.570796,
+                                "anomaly_type": "TRUE",
+                                "orbit_update_date":"2021-12-02T00:00:00.000",
+                                "frame": "EME",
+                                "attitude":"cubesat_2"
+                                },
+                            "target_in_view": false,
+                            "last_update_time": "2021-12-02T03:00:00.000"
+                            },
+                "cubesat_2":{
+                          "orbit":{
+                              "semimajor_axis": 12742500.0,
+                              "eccentricity": 0.0,
+                              "inclination": 0.1,
+                              "perigee_argument": 1.0,
+                              "right_ascension_of_ascending_node": 0.0,
+                              "anomaly": 0.0,
+                              "anomaly_type": "TRUE",
+                              "orbit_update_date":"2021-12-02T00:00:00.000",
+                              "frame": "EME",
+                              "attitude":"cubesat_1"
+                              },
+                        "target_in_view": false,
+                        "last_update_time": "2021-12-02T03:00:00.000"
+                    },
+                "cubesat_3":{
+                        "orbit":{
+                            "semimajor_axis": 12742500.0,
+                            "eccentricity": 0.0,
+                            "inclination": 0.1,
+                            "perigee_argument": 1.0,
+                            "right_ascension_of_ascending_node": 0.0,
+                            "anomaly": 0.5,
+                            "anomaly_type": "TRUE",
+                            "orbit_update_date":"2021-12-02T00:00:00.000",
+                            "frame": "EME",
+                            "attitude":"cubesat_1"
+                            },
+                        "target_in_view": false,
+                        "last_update_time": "2021-12-02T03:00:00.000"
+                    }
+                },
+        "grstns":{
+            "durand":{
+                "location":{"latitude":132.0, "longitude":132.0, "altitude":123.0},
+                "pointing_at":"cube_sat1"
+            },
+            "1047":{
+                "location":{"latitude":132.0, "longitude":132.0, "altitude":123.0},
+                "pointing_at":"cube_sat2"
+            }
+
+        },
+        "iots":{
+            "1234":{
+                "location":{"latitude":132.0, "longitude":132.0, "altitude":123.0},
+                "parent_farm": "McDonalds"
+            },
+            "1235":{
+                "location":{"latitude":132.0, "longitude":132.0, "altitude":123.0},
+                "parent_farm":"Flynns"
+            }
+
+        },
+        "time":"2021-12-02T03:00:00.000",
+        "range": 150000000,
+        "packet_duration": 8000
+    }
+
+    

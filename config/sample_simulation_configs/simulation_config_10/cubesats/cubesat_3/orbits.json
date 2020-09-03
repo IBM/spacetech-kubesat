@@ -1,0 +1,255 @@
+{
+    "sender_id": "cubesat_3",
+    "shared_storage": {
+        "sat_phonebook":{
+            "cubesat_1": false, 
+            "cubesat_2": false, 
+            "cubesat_3": false,
+            "cubesat_4": false,
+            "cubesat_5": false,
+            "cubesat_6": false,
+            "cubesat_7": false,
+            "cubesat_8": false,
+            "cubesat_9": false,
+            "cubesat_10": false
+        },
+        "iot_phonebook": {
+            "iot_1": false, 
+            "iot_2": false, 
+            "iot_3": false,
+            "iot_4": false,
+            "iot_5": false
+        },
+        "grstn_phonebook":{
+            "groundstation_1": false,
+            "groundstation_2": false
+        },
+        "swarm":{
+            "cubesat_1":{
+                "orbit":{
+                    "semimajor_axis": 6801395.04,
+                    "eccentricity": 0.0008641,
+                    "inclination": 0.0,
+                    "perigee_argument": 2.0150855958,
+                    "right_ascension_of_ascending_node": 3.6338243719,
+                    "anomaly": 4.270387838,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_2":{
+                "orbit":{
+                    "semimajor_axis": 6801395.04,
+                    "eccentricity": 0.0008641,
+                    "inclination": 30.0,
+                    "perigee_argument": 2.0150855958,
+                    "right_ascension_of_ascending_node": 3.6338243719,
+                    "anomaly": 4.270387838,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_3":{
+                "orbit":{
+                    "semimajor_axis": 6801395.04,
+                    "eccentricity": 0.0008641,
+                    "inclination": 60.0,
+                    "perigee_argument": 2.0150855958,
+                    "right_ascension_of_ascending_node": 3.6338243719,
+                    "anomaly": 4.270387838,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_4": {
+                "orbit": {
+                    "semimajor_axis": 7262888.129204535,
+                    "eccentricity": 0.0585566,
+                    "inclination": 0.5298051664183907,
+                    "perigee_argument": 1.1330712410532227,
+                    "right_ascension_of_ascending_node": 1.7417914696005372,
+                    "anomaly": 5.255191613742682,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date": "2020-07-14T21:08:34",
+                    "frame": "EME",
+                    "attitude": "nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_5": {
+                "orbit": {
+                    "semimajor_axis": 7161860.45945699,
+                    "eccentricity": 0.0034266,
+                    "inclination": 1.7280190764730499,
+                    "perigee_argument": 2.595527999859823,
+                    "right_ascension_of_ascending_node": 1.571555545019514,
+                    "anomaly": 3.6932947208037046,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date": "2020-07-15T09:53:49",
+                    "frame": "EME",
+                    "attitude": "nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2020-07-15T09:53:49",
+                "mode": "receiving"
+            },
+            "cubesat_6": {
+                "orbit": {
+                    "semimajor_axis": 6891560.752492056,
+                    "eccentricity": 0.001361,
+                    "inclination": 1.6983886217619422,
+                    "perigee_argument": 6.247482852000791,
+                    "right_ascension_of_ascending_node": 6.031240048337197,
+                    "anomaly": 0.03775496237914133,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date": "2020-07-15T11:37:24",
+                    "frame": "EME",
+                    "attitude": "nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2020-07-15T11:37:24",
+                "mode": "receiving"
+            },
+            "cubesat_7": {
+                "orbit": {
+                    "semimajor_axis": 6747104.5509873675,
+                    "eccentricity": 0.0092673,
+                    "inclination": 1.2901526190619643,
+                    "perigee_argument": 0.608826693631686,
+                    "right_ascension_of_ascending_node": 1.6642552175806888,
+                    "anomaly": 5.687003523978599,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date": "2020-07-14T04:01:17",
+                    "frame": "EME",
+                    "attitude": "nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2020-07-14T04:01:17",
+                "mode": "receiving"
+            },
+            "cubesat_8": {
+                "orbit": {
+                    "semimajor_axis": 7117352.763877977,
+                    "eccentricity": 0.0006147,
+                    "inclination": 0.6107378291626198,
+                    "perigee_argument": 4.192956305710902,
+                    "right_ascension_of_ascending_node": 4.311132549363438,
+                    "anomaly": 2.0903651371503407,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date": "2020-07-15T10:38:26",
+                    "frame": "EME",
+                    "attitude": "nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2020-07-15T10:38:26",
+                "mode": "receiving"
+            },
+            "cubesat_9": {
+                "orbit": {
+                    "semimajor_axis": 8391007.935018666,
+                    "eccentricity": 0.1710653,
+                    "inclination": 1.5434609800501615,
+                    "perigee_argument": 5.090970093764032,
+                    "right_ascension_of_ascending_node": 0.41064804772623387,
+                    "anomaly": 0.891681733526895,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date": "2020-07-14T17:45:58",
+                    "frame": "EME",
+                    "attitude": "nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2020-07-14T17:45:58",
+                "mode": "receiving"
+            },
+            "cubesat_10": {
+                "orbit": {
+                    "semimajor_axis": 7419299.96047357,
+                    "eccentricity": 0.0005653,
+                    "inclination": 1.7312165196627034,
+                    "perigee_argument": 1.0246252079805551,
+                    "right_ascension_of_ascending_node": 4.228430122757686,
+                    "anomaly": 1.9948589751519588,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date": "2020-07-14T21:32:20",
+                    "frame": "EME",
+                    "attitude": "nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2020-07-14T21:32:20",
+                "mode": "receiving"
+            }
+        },
+        "grstns":{
+            "groundstation_1": {
+                "location": {
+                    "latitude": 0.0,
+                    "longitude": 0.0,
+                    "altitude": 0.0
+                }
+            },
+            "groundstation_2": {
+                "location": {
+                    "latitude": 0.0,
+                    "longitude": 180.0,
+                    "altitude": 0.0
+                }
+            }
+        },
+        "iots":{
+            "iot_1": {
+                "location" : { 
+                    "latitude": 15.961329081596647,
+                    "longitude": 25.6640625,
+                    "altitude": 0.0
+                }
+            },
+            "iot_2": {
+                "location" : { 
+                    "latitude": 60.413852350464914,
+                    "longitude": 68.5546875,
+                    "altitude": 0.0
+                }
+            },
+            "iot_3": {
+                "location" : {
+                    "latitude": 52.696361078274485,
+                    "longitude": 95.625,
+                    "altitude": 0.0
+                }
+            },
+            "iot_4": {
+                "location" : { 
+                    "latitude": 50.958426723359935,
+                    "longitude": 15.8203125,
+                    "altitude": 0.0
+                }
+            },
+            "iot_5": {
+                "location" : { 
+                    "latitude": 50.736455137010665,
+                    "longitude": 48.8671875,
+                    "altitude": 0.0
+                }
+            }
+        },
+        "time":"2021-12-02T03:00:00.000",
+        "range": 10000000
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "sender_id": "iot_3",
+  "shared_storage": {
+    "latitude": 50.958426723359935,
+    "longitude": 15.8203125,
+    "altitude": 0.0,
+    "pointing": [],
+    "data_rate": 2,
+    "timestep": 0.4
+  }
+}
+

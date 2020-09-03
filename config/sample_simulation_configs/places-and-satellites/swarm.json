@@ -1,0 +1,212 @@
+{
+    "cubesat_1": {
+        "orbit": {
+            "semimajor_axis": 6801395.04,
+            "eccentricity": 0.0008641,
+            "inclination": 0.0,
+            "perigee_argument": 2.0150855958,
+            "right_ascension_of_ascending_node": 3.6338243719,
+            "anomaly": 4.270387838,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T00:00:00.000",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2010-07-02T03:00:00.000"
+    },
+    "cubesat_2": {
+        "orbit": {
+            "semimajor_axis": 6801395.04,
+            "eccentricity": 0.0008641,
+            "inclination": 1.4,
+            "perigee_argument": 2.0150855958,
+            "right_ascension_of_ascending_node": 3.6338243719,
+            "anomaly": 4.270387838,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T00:00:00.000",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2010-07-02T03:00:00.000"
+    },
+    "ATLAS CENTAUR 2": {
+        "orbit": {
+            "semimajor_axis": 7262888.129204535,
+            "eccentricity": 0.0585566,
+            "inclination": 0.5298051664183907,
+            "perigee_argument": 1.1330712410532227,
+            "right_ascension_of_ascending_node": 1.7417914696005372,
+            "anomaly": 5.255191613742682,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-14T21:08:34",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-14T21:08:34"
+    },
+    "THOR AGENA D R/B": {
+        "orbit": {
+            "semimajor_axis": 7161860.45945699,
+            "eccentricity": 0.0034266,
+            "inclination": 1.7280190764730499,
+            "perigee_argument": 2.595527999859823,
+            "right_ascension_of_ascending_node": 1.571555545019514,
+            "anomaly": 3.6932947208037046,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T09:53:49",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-15T09:53:49"
+    },
+    "SL-3 R/B": {
+        "orbit": {
+            "semimajor_axis": 6891560.752492056,
+            "eccentricity": 0.001361,
+            "inclination": 1.6983886217619422,
+            "perigee_argument": 6.247482852000791,
+            "right_ascension_of_ascending_node": 6.031240048337197,
+            "anomaly": 0.03775496237914133,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T11:37:24",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-15T11:37:24"
+    },
+    "SL-8 R/B": {
+        "orbit": {
+            "semimajor_axis": 6747104.5509873675,
+            "eccentricity": 0.0092673,
+            "inclination": 1.2901526190619643,
+            "perigee_argument": 0.608826693631686,
+            "right_ascension_of_ascending_node": 1.6642552175806888,
+            "anomaly": 5.687003523978599,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-14T04:01:17",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-14T04:01:17"
+    },
+    "OAO 2": {
+        "orbit": {
+            "semimajor_axis": 7117352.763877977,
+            "eccentricity": 0.0006147,
+            "inclination": 0.6107378291626198,
+            "perigee_argument": 4.192956305710902,
+            "right_ascension_of_ascending_node": 4.311132549363438,
+            "anomaly": 2.0903651371503407,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T10:38:26",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-15T10:38:26"
+    },
+    "ISIS 1": {
+        "orbit": {
+            "semimajor_axis": 8391007.935018666,
+            "eccentricity": 0.1710653,
+            "inclination": 1.5434609800501615,
+            "perigee_argument": 5.090970093764032,
+            "right_ascension_of_ascending_node": 0.41064804772623387,
+            "anomaly": 0.891681733526895,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-14T17:45:58",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-14T17:45:58"
+    },
+    "SERT 2": {
+        "orbit": {
+            "semimajor_axis": 7419299.96047357,
+            "eccentricity": 0.0005653,
+            "inclination": 1.7312165196627034,
+            "perigee_argument": 1.0246252079805551,
+            "right_ascension_of_ascending_node": 4.228430122757686,
+            "anomaly": 1.9948589751519588,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-14T21:32:20",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-14T21:32:20"
+    },
+    "ASTEX 1": {
+        "orbit": {
+            "semimajor_axis": 7110078.093229445,
+            "eccentricity": 0.0015637,
+            "inclination": 1.6179638498300433,
+            "perigee_argument": 3.289032832810518,
+            "right_ascension_of_ascending_node": 3.591070786514397,
+            "anomaly": 2.995800065182951,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T00:30:03",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-15T00:30:03"
+    },
+    "COSMOS 482 DESCENT CRAFT": {
+        "orbit": {
+            "semimajor_axis": 7601984.048335752,
+            "eccentricity": 0.1346187,
+            "inclination": 0.9083827891392288,
+            "perigee_argument": 2.100959285709946,
+            "right_ascension_of_ascending_node": 5.647983197891762,
+            "anomaly": 4.428120223795365,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T10:14:10",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-15T10:14:10"
+    },
+    "OAO 3 (COPERNICUS)": {
+        "orbit": {
+            "semimajor_axis": 7077951.933764945,
+            "eccentricity": 0.0007382,
+            "inclination": 0.610971703282387,
+            "perigee_argument": 4.141776270725419,
+            "right_ascension_of_ascending_node": 2.583078566305348,
+            "anomaly": 4.541913945696144,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-15T05:44:29",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-15T05:44:29"
+    },
+    "ATLAS CENTAUR R/B": {
+        "orbit": {
+            "semimajor_axis": 7034125.288939715,
+            "eccentricity": 0.0037217,
+            "inclination": 0.6109402873558512,
+            "perigee_argument": 0.5545644071871823,
+            "right_ascension_of_ascending_node": 1.4335261811255426,
+            "anomaly": 5.733743441347007,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-14T21:27:56",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-14T21:27:56"
+    },
+    "SEASAT 1": {
+        "orbit": {
+            "semimajor_axis": 7124020.888001897,
+            "eccentricity": 0.0001882,
+            "inclination": 1.8849904987389157,
+            "perigee_argument": 5.421989239697276,
+            "right_ascension_of_ascending_node": 2.2273525394808718,
+            "anomaly": 0.8629082354785165,
+            "anomaly_type": "MEAN",
+            "orbit_update_date": "2020-07-14T13:24:08",
+            "frame": "EME",
+            "attitude": "nadir_tracking"
+        },
+        "last_update_time": "2020-07-14T13:24:08"
+    }
+}

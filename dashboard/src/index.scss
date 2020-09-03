@@ -1,0 +1,36 @@
+@import "@carbon/themes/scss/themes";
+$feature-flags: (
+  ui-shell: true
+);
+@import "@carbon/themes/scss/themes";
+
+// Use the gray 90 theme
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+@import "carbon-components/scss/globals/scss/styles.scss";
+
+.right-shift {
+  padding-left: $spacing-09;
+}
+
+.shift-dial-system {
+  padding-top: $spacing-08;
+  position: relative;
+}
+
+.sub-dial-system {
+  padding-top: $spacing-03;
+}
+
+.sub-dial-middle-padding {
+  padding-left: $spacing-02;
+  padding-right: $spacing-02;
+}
+
+.graph-shift-down {
+  padding-top: $spacing-07;
+}
+
+body {
+  background-color: black;
+}

@@ -1,0 +1,115 @@
+{
+    "sender_id": "cubesat_3",
+    "shared_storage": {
+        "sat_phonebook":{"cubesat_1": true, "cubesat_2": true, "cubesat_3": true, "cubesat_4": true, "cubesat_5": true},
+        "iot_phonebook": {"iot_1": false },
+        "grstn_phonebook":{"groundstation_1": false},
+        "swarm":{
+            "cubesat_1":{
+                "orbit":{
+                    "semimajor_axis": 6378800.0,
+                    "eccentricity": 0.0,
+                    "inclination": 0.0,
+                    "perigee_argument": 0.0,
+                    "right_ascension_of_ascending_node": 0.0,
+                    "anomaly": 0.0,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_2":{
+                "orbit":{
+                    "semimajor_axis": 6378800.0,
+                    "eccentricity": 0.0,
+                    "inclination": 0.0,
+                    "perigee_argument": 0.0,
+                    "right_ascension_of_ascending_node": 0.0,
+                    "anomaly": 5.070387838,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_3":{
+                "orbit":{
+                    "semimajor_axis": 6378250.0,
+                    "eccentricity": 0.0,
+                    "inclination": 0.0,
+                    "perigee_argument": 0.0,
+                    "right_ascension_of_ascending_node": 0.0,
+                    "anomaly": 0.0,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_4":{
+                "orbit":{
+                    "semimajor_axis": 6383000,
+                    "eccentricity": 0.0,
+                    "inclination": 0.0,
+                    "perigee_argument": 0.0,
+                    "right_ascension_of_ascending_node": 0.0,
+                    "anomaly": 0.0,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            },
+            "cubesat_5":{
+                "orbit":{
+                    "semimajor_axis": 6388000,
+                    "eccentricity": 0.0,
+                    "inclination": 0.0,
+                    "perigee_argument": 0.0,
+                    "right_ascension_of_ascending_node": 0.0,
+                    "anomaly": 0.0,
+                    "anomaly_type": "MEAN",
+                    "orbit_update_date":"2020-07-15T00:00:00.000",
+                    "frame": "EME",
+                    "attitude":"nadir_tracking"
+                },
+                "target_in_view": true,
+                "last_update_time": "2010-07-02T03:00:00.000",
+                "mode": "receiving"
+            }
+        },
+        "grstns":{
+            "groundstation_1":{
+                "location":{ 
+                    "latitude": 0.0, 
+                    "longitude": 0.0, 
+                    "altitude": 0.0
+                }
+            }
+        },
+        "iots":{
+            "iot_1":{
+                "location":{
+                    "latitude": 0.0,
+                    "longitude": 177.65, 
+                    "altitude": 0.0
+                }
+            }
+        },
+        "time":"2021-12-02T03:00:00.000",
+        "range": 10000000
+    }
+}

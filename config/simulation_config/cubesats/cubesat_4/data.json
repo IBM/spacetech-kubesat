@@ -1,0 +1,10 @@
+{
+    "sender_id": "cubesat_4",
+    "shared_storage": {
+      "pointing": ["groundstation_1", "groundstation_2", "iot_1", "iot_2", "iot_3", "iot_4", "iot_5"],
+      "pointing_to": "",
+      "mode": "receiving",
+      "data_rate": 50,
+      "timestep": 0.4
+    }
+}

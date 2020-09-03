@@ -1,0 +1,12 @@
+{
+    "sender_id": "groundstation_2",
+    "shared_storage": {
+       "pointing": [],
+       "packets_received":0,
+        "latitude": 0.0,
+        "longitude": 180.0,
+        "altitude": 0.0,
+        "ip_map":{},
+        "ip_cluster_map":{}
+    }
+}

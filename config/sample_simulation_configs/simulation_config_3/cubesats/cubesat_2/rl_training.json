@@ -1,0 +1,7 @@
+{
+    "sender_id": "cubesat_2",
+    "shared_storage" : {
+      "weights_location": ".",
+      "model_location": "."
+    }
+}

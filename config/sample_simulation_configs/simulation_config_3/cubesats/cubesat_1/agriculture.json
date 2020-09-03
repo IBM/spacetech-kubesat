@@ -1,0 +1,6 @@
+{
+    "sender_id": "cubesat_1",
+    "shared_storage": {
+      "data_rate": 1
+    }
+}

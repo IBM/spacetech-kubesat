@@ -1,0 +1,77 @@
+{
+    "Station 0": {
+        "latitude": 18.979025953255267,
+        "longitude": 2.4609375,
+        "altitude": 0.0
+    },
+    "Station 1": {
+        "latitude": 15.961329081596647,
+        "longitude": 25.6640625,
+        "altitude": 0.0
+    },
+    "Station 2": {
+        "latitude": 60.413852350464914,
+        "longitude": 68.5546875,
+        "altitude": 0.0
+    },
+    "Station 3": {
+        "latitude": 52.696361078274485,
+        "longitude": 95.625,
+        "altitude": 0.0
+    },
+    "Station 4": {
+        "latitude": 50.958426723359935,
+        "longitude": 15.8203125,
+        "altitude": 0.0
+    },
+    "Station 5": {
+        "latitude": 50.736455137010665,
+        "longitude": 48.8671875,
+        "altitude": 0.0
+    },
+    "Station 6": {
+        "latitude": -3.864254615721396,
+        "longitude": 25.6640625,
+        "altitude": 0.0
+    },
+    "Station 7": {
+        "latitude": -24.5271348225978,
+        "longitude": 136.0546875,
+        "altitude": 0.0
+    },
+    "Station 8": {
+        "latitude": -22.91792293614603,
+        "longitude": 121.9921875,
+        "altitude": 0.0
+    },
+    "Station 9": {
+        "latitude": 1.0546279422758869,
+        "longitude": -74.1796875,
+        "altitude": 0.0
+    },
+    "Station 10": {
+        "latitude": -17.644022027872712,
+        "longitude": -59.765625,
+        "altitude": 0.0
+    },
+    "Station 11": {
+        "latitude": 55.178867663281984,
+        "longitude": -118.125,
+        "altitude": 0.0
+    },
+    "Station 12": {
+        "latitude": 39.095962936305476,
+        "longitude": -105.1171875,
+        "altitude": 0.0
+    },
+    "Station 13": {
+        "latitude": 77.157162522661,
+        "longitude": -44.6484375,
+        "altitude": 0.0
+    },
+    "Station 14": {
+        "latitude": 73.62778879339942,
+        "longitude": -43.59375,
+        "altitude": 0.0
+    }
+}

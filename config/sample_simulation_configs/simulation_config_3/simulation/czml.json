@@ -1,0 +1,216 @@
+{
+  "sender_id": "simulation",
+  "shared_storage": {
+    "swarm":{
+    },
+    "grstns":{
+      "groundstation_1":{
+        "location":{"latitude":0.01, "longitude":0.543, "altitude":0.78}
+      }
+    },
+    "iots":{
+      "iot_1":{
+        "location":{"latitude":177.5, "longitude":0.431, "altitude":0.1}
+      },
+      "iot_2":{
+        "location":{"latitude":97.4, "longitude":0.789, "altitude":0.877}
+      },
+      "iot_3":{
+        "location":{"latitude":89.1, "longitude":0.5, "altitude":0.437}
+      }
+    },
+    "time":"2020-07-15T00:00:00.000",
+    "range": 10000000.0,
+    "packet_duration": 43200.0,
+    "packet_frequency_counter":0,
+    "generic":{
+      "generic_1" : {
+        "id":"document",
+        "name":"simple",
+        "version":"1.0",
+        "clock":{
+          "interval":"",
+          "currentTime": "",
+          "multiplier":50,
+          "range":"LOOP_STOP",
+          "step":"SYSTEM_CLOCK_MULTIPLIER"
+        }
+      },
+      "generic_2" : {
+        "id":"9927edc4-e87a-4e1f-9b8b-0bfb3b05b227",
+        "name":"Accesses",
+        "description":"List of Accesses"
+      },
+      "billboard" : {
+        "eyeOffset":{
+          "cartesian":[
+            0,0,0
+          ]
+        },
+        "horizontalOrigin":"CENTER",
+        "image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADJSURBVDhPnZHRDcMgEEMZjVEYpaNklIzSEfLfD4qNnXAJSFWfhO7w2Zc0Tf9QG2rXrEzSUeZLOGm47WoH95x3Hl3jEgilvDgsOQUTqsNl68ezEwn1vae6lceSEEYvvWNT/Rxc4CXQNGadho1NXoJ+9iaqc2xi2xbt23PJCDIB6TQjOC6Bho/sDy3fBQT8PrVhibU7yBFcEPaRxOoeTwbwByCOYf9VGp1BYI1BA+EeHhmfzKbBoJEQwn1yzUZtyspIQUha85MpkNIXB7GizqDEECsAAAAASUVORK5CYII=",
+        "pixelOffset":{
+          "cartesian2":[
+            0,0
+          ]
+        },
+        "scale":1.5,
+        "show":true,
+        "verticalOrigin":"CENTER"
+      },
+      "label": {
+        "fillColor":{
+          "rgba":[
+            255,0,255,255
+          ]
+        },
+        "font":"11pt Lucida Console",
+        "horizontalOrigin":"LEFT",
+        "outlineColor":{
+          "rgba":[
+            0,0,0,255
+          ]
+        },
+        "outlineWidth":2,
+        "pixelOffset":{
+          "cartesian2":[
+            12,0
+          ]
+        },
+        "show":true,
+        "style":"FILL_AND_OUTLINE",
+        "text": "",
+        "verticalOrigin":"CENTER"
+      },
+      "path" : {
+        "show":[
+          {
+            "interval":"",
+            "boolean": true
+          }
+        ],
+        "width":1,
+        "material":{
+          "solidColor":{
+            "color":{
+              "rgba":[
+                255,0,255,255
+              ]
+            }
+          }
+        },
+        "resolution":120,
+        "leadTime":[],
+        "trailTime": []
+      },
+      "position" : {
+        "interpolationAlgorithm":"LAGRANGE",
+        "interpolationDegree":5,
+        "referenceFrame":"INERTIAL",
+        "epoch":"",
+        "cartesian":[]
+      },
+      "lead_and_trail": 86400.0,
+      "lead_and_trail_number": 5537.55,
+      "grstn" : {
+        "id": "",
+        "name": "",
+        "availability": "",
+        "description":"<!--HTML--> <p> nothing to see here </p>",
+        "billboard":{
+          "eyeOffset":{
+            "cartesian":[
+              0,0,0
+            ]
+          },
+          "horizontalOrigin":"CENTER",
+          "image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACvSURBVDhPrZDRDcMgDAU9GqN0lIzijw6SUbJJygUeNQgSqepJTyHG91LVVpwDdfxM3T9TSl1EXZvDwii471fivK73cBFFQNTT/d2KoGpfGOpSIkhUpgUMxq9DFEsWv4IXhlyCnhBFnZcFEEuYqbiUlNwWgMTdrZ3JbQFoEVG53rd8ztG9aPJMnBUQf/VFraBJeWnLS0RfjbKyLJA8FkT5seDYS1Qwyv8t0B/5C2ZmH2/eTGNNBgMmAAAAAElFTkSuQmCC",
+          "pixelOffset":{
+            "cartesian2":[
+              0,0
+            ]
+          },
+          "scale":1.5,
+          "show": true,
+          "verticalOrigin":"CENTER"
+        },
+        "label":{
+          "fillColor":{
+            "rgba":[
+              0,255,255,255
+            ]
+          },
+          "font":"11pt Lucida Console",
+          "horizontalOrigin":"LEFT",
+          "outlineColor":{
+            "rgba":[
+              0,0,0,255
+            ]
+          },
+          "outlineWidth":2,
+          "pixelOffset":{
+            "cartesian2":[
+              12,0
+            ]
+          },
+          "show":true,
+          "style":"FILL_AND_OUTLINE",
+          "text": "",
+          "verticalOrigin":"CENTER"
+        },
+        "position":{
+          "cartographicDegrees": []
+        }
+      },
+      "satellite_description" : "<!--HTML--> <p> nothing to see here </p>",
+      "sat2grstn" : {
+        "id": "",
+        "name": "",
+        "parent":"9927edc4-e87a-4e1f-9b8b-0bfb3b05b227",
+        "availability":[],
+        "description":"<!--HTML--> <p> nothing to see here </p>",
+        "polyline":{
+          "show":[],
+          "width":1,
+          "material":{
+            "solidColor":{
+              "color":{
+                "rgba":[
+                  0,255,255,255
+                ]
+              }
+            }
+          },
+          "arcType":"NONE",
+          "positions":{
+            "references": []
+          }
+        }
+      },
+      "general_link":{
+        "id":"",
+        "name":"",
+        "parent":"9927edc4-e87a-4e1f-9b8b-0bfb3b05b227",
+        "availability":[],
+        "description":"<!--HTML--> <p> nothing to see here </p>",
+        "polyline":{
+          "show":[],
+          "width":1,
+          "material":{
+            "solidColor":{
+              "color":{
+                "rgba":[
+                  0,255,255,255
+                ]
+              }
+            }
+          },
+          "arcType":"NONE",
+          "positions":{
+            "references":[]
+          }
+        }
+      }
+    }
+  }
+}

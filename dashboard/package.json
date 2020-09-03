@@ -1,0 +1,60 @@
+{
+  "name": "user-interface",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@carbon/charts": "^0.34.8",
+    "@carbon/charts-react": "^0.34.8",
+    "@carbon/grid": "^10.13.0",
+    "@carbon/icons-react": "^10.15.0",
+    "@carbon/layout": "^10.12.0",
+    "@carbon/themes": "^10.15.0",
+    "@craco/craco": "^5.6.4",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "bootstrap": "^4.5.1",
+    "carbon-components": "10.3.0",
+    "carbon-components-react": "7.3.0",
+    "carbon-icons": "7.0.7",
+    "cesium": "^1.71.0",
+    "craco-cesium": "^1.2.0",
+    "d3": "^5.16.0",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "minimist": "^1.2.5",
+    "nats": "^1.4.12",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-csv": "^2.0.3",
+    "react-dom": "^16.13.1",
+    "react-fade-in": "^1.1.0",
+    "react-image": "^4.0.3",
+    "react-loading": "^2.0.3",
+    "react-lottie": "^1.2.3",
+    "react-scripts": "3.4.1",
+    "react-simple-maps": "^2.1.2",
+    "resium": "^1.12.0"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

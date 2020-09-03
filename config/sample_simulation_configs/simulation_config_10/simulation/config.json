@@ -1,0 +1,109 @@
+{
+  "sender_id": "simulation",
+  "shared_storage": {
+    "simulation": {
+      "clock": false,
+      "logging": false,
+      "czml": false,
+      "config": false
+    },
+    "cubesats": {
+      "cubesat_1": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_2": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_3": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_4": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_5": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_6": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_7": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_8": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_9": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      },
+      "cubesat_10": {
+        "orbits": false,
+        "rl": false,
+        "rl_training": false,
+        "data": false,
+        "agriculture": false
+      }
+    },
+    "groundstations": {
+      "groundstation_1": {
+        "groundstation": false
+      },
+      "groundstation_2": {
+        "groundstation": false
+      }
+    },
+    "iots": {
+      "iot_1": {
+        "iot": false
+      },
+      "iot_2": {
+        "iot": false
+      },
+      "iot_3": {
+        "iot": false
+      },
+      "iot_4": {
+        "iot": false
+      },
+      "iot_5": {
+        "iot": false
+      }
+    },
+    "config_path":"./simulation_config"
+  }
+}

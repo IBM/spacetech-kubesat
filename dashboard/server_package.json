@@ -1,0 +1,30 @@
+{
+  "name": "user-interface-backend",
+  "version": "1.0.0",
+  "description": "Backend server for the software defined satellite swarm UI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.ibm.com/EB-CubeSatSwarm/user-interface-backend"
+  },
+  "keywords": [
+    "nats",
+    "space",
+    "satellites",
+    "node",
+    "websockets"
+  ],
+  "author": "EB-Interns",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "minimist": "^1.2.5",
+    "nats": "^1.4.9",
+    "react-simple-maps": "^2.1.2"
+  }
+}
