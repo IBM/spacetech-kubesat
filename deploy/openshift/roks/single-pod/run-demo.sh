@@ -165,7 +165,7 @@ EOF
 oc apply -f kubesat-demo.yaml
 
 echo "${app} pod starting..." |tee -a $log
-i=0; sleep 20;
+i=0; sleep 50;
 while [ -z "$(oc exec -it po/${app} -c sim -- \
 cat /tmp/run-kubesat.log | tail -n 1 | \
 grep 'kubesat started')" ]; do
