@@ -45,12 +45,12 @@ Docker should be installed and running on your machine.
 
 ### Instructions
 
-By default code from `master` branch will be cloned to `/tmp/spacetech-kubesat` folder on your machine.
+By default, code from `master` branch will be cloned to `/tmp/spacetech-kubesat` folder on your machine.
 ```bash
 curl -sSL https://https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/devtest/bootstrap.sh | sh
 ```
 
-Use following commands to instead bootstrap your devtest environment with custom options.
+Use following commands to bootstrap your devtest environment with custom options.
 
 - Pull code from a specific branch
 ```
