@@ -1,6 +1,46 @@
 #!/bin/bash
 
+# usage
+usage() {
+  cat <<USG
+Usage: bash $0 [OPTIONS]
+  OPTIONS:
+  -g|--kubesat-repo-dir    NATS server hostname/ip-address
+                           default: /tmp/spacetech-kubesat
+  -h|--help                Show help/usage
+USG
+}
+
+# clone git repo
 kubesat_repo="/tmp/spacetech-kubesat"
+while (( "$#" )); do
+  case "$1" in
+    -g|--kubesat-repo-dir)
+      kubesat_repo="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      shift 1
+      ;;
+    *)
+      echo -e "Error. Invalid arg(s)" |teer -a $log
+      usage
+      exit 1
+      ;;
+  esac
+done
+echo "Begin..."
+echo "kubesat_repo: ${kubesat_repo}"
+if [ -d "${kubesat_repo}" ]; then
+  mv ${kubesat_repo} \
+  "$(dirname ${kubesat_repo})/$(basename ${kubesat_repo})-$(date +"%Y%m%d-%H%M%S")"
+  mkdir -p ${kubesat_repo}
+  echo "kubesat_repo: ${kubesat_repo} already exists. Backed up."
+fi
+echo "Cloning git repo..."
+git clone https://github.com/IBM/spacetech-kubesat \
+  --branch master --single-branch ${kubesat_repo}
 
 # create kubesat conda env
 cat <<EOF >${kubesat_repo}/dev/conda-manifest.yaml
@@ -29,7 +69,7 @@ dependencies:
 EOF
 
 # create kubesat setup
-cat <<EOF >${kubesat_repo}/dev/setup.sh
+cat <<EOF >${kubesat_repo}/devtest/setup.sh
 #!/bin/bash
 apk update
 apk --no-cache add git bash curl wget unzip tar git vim docker
@@ -45,7 +85,7 @@ wget https://gitlab.orekit.org/orekit/orekit-data/-/archive/master/orekit-data-m
 EOF
 
 # run kubesat
-cat <<EOF >${kubesat_repo}/dev/run-kubesat.sh
+cat <<EOF >${kubesat_repo}/devtest/run.sh
 #!/bin/bash
 
 kubesat_repo=${kubesat_repo}
@@ -111,25 +151,30 @@ start_svc "clock"
 EOF
 
 # create dockerfile
-cat <<EOF >${kubesat_repo}/dev/Dockerfile
+cat <<EOF >${kubesat_repo}/devtest/Dockerfile
 FROM continuumio/miniconda3:4.8.2-alpine
 USER root
-WORKDIR ${kubesat_repo}
+RUN apk update && apk --no-cache add bash wget git vim unzip
+SHELL ["/bin/bash", "-c"]
+WORKDIR ${kubesat_repo}/devtest
 EXPOSE 8080
 ENV PYTHONDONTWRITEBYTECODE=true
-ENV PATH \$PATH:/opt/conda/condabin
+ENV PATH /opt/conda/condabin:\$PATH
+ENV PATH /opt/conda/envs/kubesat/bin/:\$PATH
 EOF
 
 # build
-docker build -t dev-kubesat:1.0 ${kubesat_repo}/dev
+docker build -t dev-kubesat:1.0 ${kubesat_repo}/devtest
 docker stop dev-kubesat
 docker rm dev-kubesat
 docker run --name dev-kubesat -td \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v ${kubesat_repo}:${kubesat_repo} dev-kubesat:1.0
 echo "Run setup..."
-docker exec -it dev-kubesat sh ${kubesat_repo}/dev/setup.sh
-echo "kubesat dev environment successfully bootstrapped."
-echo "Run following commands to run kubesat from dev-kubesat container"
-echo "docker exec -it dev-kubesat /bin/bash"
-echo "conda activate kubesat && bash dev/run-kubesat.sh"
+docker exec -it dev-kubesat sh setup.sh
+echo "Start kubesat services..."
+docker exec -it dev-kubesat bash run.sh
+echo -e "\\nkubesat devtest environment creation completed successfully"
+echo "Dashboard is now available at http://localhost:8080"
+echo -e "\\nRe-run following command to test any code changes made in ${kubesat_repo}"
+echo "docker exec -it dev-kubesat bash run.sh"
