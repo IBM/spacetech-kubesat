@@ -5,27 +5,24 @@ Docker should be installed and running on your machine.
 
 ### Instructions
 
+By default code from `master` branch will be cloned to `/tmp/spacetech-kubesat` folder on your machine.
 ```bash
-mkdir -p /tmp/spacetech-kubesat
-git clone https://github.com/IBM/spacetech-kubesat /tmp/spacetech-kubesat
+curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/devtest/master/bootstrap.sh | sh
 ```
 
-`/tmp/spacetech-kubesat` is used as location of the cloned repository on your development machine. If cloned to a different location, set the directory location to `kubesat_repo` in `spacetech-kubesat/dev/bootstrap.sh`.  
+Use following commands to instead bootstrap your devtest environment with custom options.
 
-Run `bootstrap.sh`. This will create a container with required conda environment. This container will mount your cloned repo, so you can do development work on your machine and use the container to run and test.
-
-```bash
-bash /tmp/spacetech-kubesat/dev/bootstrap.sh
+- Pull code from a specific branch
+```
+curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/devtest/master/bootstrap.sh | sh -s -- -b <branch-name>
+```
+- Clone git repo to a specific folder
+```
+curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/devtest/master/bootstrap.sh | sh -s -- -r <folder-name>
 ```
 
-You should now have `dev-kubesat` container in running state. Log in and start kubesat services.
+Post-bootstrap, all kubesat services are running with dashboard at http://localhost:8080
 
-```bash
-docker exec -it dev-kubesat /bin/bash
-conda activate kubesat && bash /tmp/spacetech-kubesat/dev/run-kubesat.sh
-```
+Logs for each service can be found in `devtest` folder.
 
-STDOUT from each each service is also available as log file in the `dev` folder. After all services are running, kubesat dashboard is accessible at http://localhost:8080
-
-
-After making any code changes to existing services, re-run `conda activate kubesat && bash /tmp/spacetech-kubesat/dev/run-kubesat.sh` to reload new environment with the updates.
+After making any code changes, run `docker exec -it dev-kubesat bash run.sh` to reload kubesat services with code updates.
