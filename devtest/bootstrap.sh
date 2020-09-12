@@ -5,7 +5,7 @@ usage() {
   cat <<USG
 Usage: bash $0 [OPTIONS]
   OPTIONS:
-  -g|--kubesat-repo-dir    NATS server hostname/ip-address
+  -r|--kubesat-repo-dir    NATS server hostname/ip-address
                            default: /tmp/spacetech-kubesat
   -b|--branch              Branch to clone from
                            default: master
