@@ -1,10 +1,5 @@
 #!/bin/bash
 
-app=kubesat
-ver="1.0"
-repo=ibmkubesat
-ns="$app-demo"
-
 # usage
 usage() {
   cat <<USG
@@ -12,23 +7,31 @@ Usage: bash \$0 [OPTIONS]
   OPTIONS:
   -s|--nats-server    NATS server hostname/ip-address
   -d|--redis-server   REDIS server hostname/ip-address
-  -c|--cubesat-count  Number of cubesats in demo swarm
+  -c|--cubesat-count  Number of cubesats
                       Recommended between 1 and 5
   -g|--ground-count   Number of ground stations
                       Recommended between 1 and 2
   -i|--iot-count      Number of iot sensors
                       Recommended between 1 and 5
-  -n|--dns-name       DNS Name to use to launch demo
+  -n|--dns-name       DNS Name to use to launch dashboard
+  -p|--ocp-project    Target OpenShift project (default: kubesat-tmp)
+  -r|--image-registry Container registry name/url
+  -t|--image-tag      Container image tag
   -h|--help)          Usage/help
   (no args)           Use default settings
-                      Redis and NATS on localhost
+                      OpenShift project: kubesat-tmp
+                      Redis: redis.kubesat-tmp.svc.cluster.local
+                      NATS:  nats
+                      Container image: ibmkubesat/kubesat:1.0
                       1 cubesat, 1 ground-station, 1 iot-sensor
 USG
 }
 
 # defaults
-redis="redis.${ns}.svc.cluster.local"
-nats="nats.${ns}.svc.cluster.local"
+repo=ibmkubesat
+app=kubesat
+ver="1.0"
+ns="kubesat-tmp"
 sat_count=1
 ground_count=1
 iot_count=1
@@ -61,6 +64,18 @@ while (( "$#" )); do
       dns_name=$2
       shift 2
       ;;
+    -p|--ocp-project)
+      ns=$2
+      shift 2
+      ;;
+    -r|--image-registry)
+      repo=$2
+      shift 2
+      ;;
+    -t|--image-tag)
+      ver=$2
+      shift 2
+      ;;
     -h|--help)
       usage
       exit
@@ -73,6 +88,8 @@ while (( "$#" )); do
   esac
 done
 
+[ -z "${redis}" ] && redis="redis.${ns}.svc.cluster.local"
+[ -z "${nats}" ] && nats="nats.${ns}.svc.cluster.local"
 echo "redis host:     ${redis}" |tee -a $log
 echo "nats host:      ${nats}" |tee -a $log
 echo "cubesat count:  $sat_count" |tee -a $log
@@ -80,6 +97,7 @@ echo "ground count:   $ground_count" |tee -a $log
 echo "iot-sensors:    $iot_count" |tee -a $log
 
 # begin
+echo "Start deployment..."
 oc delete namespace $ns 2>/dev/null
 sleep 55
 oc create namespace $ns 2>/dev/null
@@ -96,7 +114,7 @@ deploy() {
   local po=$(oc get po -l app=${app},svc=${svc} | \
   tail -n 1 | awk '{print $1}')
   while [ -z "$(oc exec -it po/${po} -- \
-  cat /tmp/run-kubesat.log | tail -n 1 | \
+  cat /tmp/run.log | tail -n 1 | \
   grep 'Done')" ]; do
     if [ $j -ge 20 ]; then
       echo "${app}-${svc} resource(s) did not start" |tee -a $log
@@ -267,7 +285,7 @@ spec:
     spec:
       containers:
       - name: "${svc}"
-        image: "${repo}/${app}:${ver}-demo"
+        image: "${repo}/${app}:${ver}"
         imagePullPolicy: Always
         ports:
         - containerPort: 8001
@@ -277,7 +295,7 @@ spec:
         command:
         - bash
         args:
-        - "/opt/kubesat/run-kubesat.sh"
+        - "/opt/kubesat/run.sh"
         - "-d"
         - "redis.${ns}.svc.cluster.local"
         - "-s"
@@ -345,14 +363,14 @@ spec:
     spec:
       containers:
       - name: "${svc}"
-        image: "${repo}/${app}:${ver}-demo"
+        image: "${repo}/${app}:${ver}"
         imagePullPolicy: Always
         ports:
         - containerPort: 8001
         command:
         - bash
         args:
-        - "/opt/kubesat/run-kubesat.sh"
+        - "/opt/kubesat/run.sh"
         - "-d"
         - "redis.${ns}.svc.cluster.local"
         - "-s"
@@ -420,14 +438,14 @@ spec:
     spec:
       containers:
       - name: "${svc}"
-        image: "${repo}/${app}:${ver}-demo"
+        image: "${repo}/${app}:${ver}"
         imagePullPolicy: Always
         ports:
         - containerPort: 8001
         command:
         - bash
         args:
-        - "/opt/kubesat/run-kubesat.sh"
+        - "/opt/kubesat/run.sh"
         - "-d"
         - "redis.${ns}.svc.cluster.local"
         - "-s"
@@ -510,7 +528,7 @@ spec:
     spec:
       containers:
       - name: "${svc}"
-        image: "${repo}/${app}:${ver}-demo"
+        image: "${repo}/${app}:${ver}"
         imagePullPolicy: Always
         ports:
         - containerPort: 8001
@@ -521,7 +539,7 @@ spec:
         command:
         - bash
         args:
-        - "/opt/kubesat/run-kubesat.sh"
+        - "/opt/kubesat/run.sh"
         - "-d"
         - "redis.${ns}.svc.cluster.local"
         - "-s"

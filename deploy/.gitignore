@@ -1,5 +1,7 @@
-files/*
-logs/*
-tf-ibmcloud/.terraform*
-tf-ibmcloud/terraform*
-tf-ibmcloud/*.log
+*/*.log
+*/*.bak
+*/files/*
+*/logs/*
+*/tf-ibmcloud/.terraform*
+*/tf-ibmcloud/terraform*
+*/tf-ibmcloud/*.log

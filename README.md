@@ -65,7 +65,7 @@ Post-bootstrap, all kubesat services are running with dashboard at http://localh
 
 Logs for each service can be found in `devtest` folder.
 
-After making any code changes, run `docker exec -it dev-kubesat bash run.sh` to reload kubesat services with code updates.
+After making any code changes, run `docker exec -t dev-kubesat bash run.sh` to reload kubesat services with code updates.
 
 
 ### Helpful Links
