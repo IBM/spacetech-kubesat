@@ -11,7 +11,7 @@ By default, code from `master` branch will be cloned to `/tmp/spacetech-kubesat`
 curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/devtest/bootstrap.sh | sh
 ```
 
-Use following commands to instead bootstrap your devtest environment with custom options.
+Use following commands to bootstrap your devtest environment with custom options.
 
 - Pull code from a specific branch
 ```
@@ -26,4 +26,4 @@ Post-bootstrap, all kubesat services are running with dashboard at http://localh
 
 Logs for each service can be found in `devtest` folder.
 
-After making any code changes, run `docker exec -it dev-kubesat bash run.sh` to reload kubesat services with code updates.
+After making any code changes, run `docker exec -t dev-kubesat bash run.sh` to reload kubesat services with code updates.
