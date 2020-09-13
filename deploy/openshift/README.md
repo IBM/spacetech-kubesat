@@ -1,19 +1,3 @@
-## Quick Deploy
-Log in to OpenShift cluster
-```bash
-oc login
-```
-
-Deploy with default options
-```bash
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/deploy/openshift/deploy.sh | sh
-```
-
-Deploy with custom options
-```bash
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/deploy/openshift/deploy.sh | sh -- [OPTIONS]
-```
-
 ## Build KubeSat
 
 Run build script to build and upload container images for kubesat and kubesat-dashboard. Set the image-registry and image-tag arguments to host container images in your repo.
@@ -26,15 +10,18 @@ bash build.sh [--image-registry <name/url>] [--image-tag <tag>]
 
 KubeSat application can be deployed to any OpenShift cluster, including CRC and RedHat OpenShift Kubernetes Service in IBM Cloud.
 
-1. Log in to OpenShift cluster
-```bash
+Log in to OpenShift cluster
+```sh
 oc login
 ```
 
-2. Run deploy script, see usage.
+Deploy with default options
 ```bash
-bash deploy.sh [ OPTIONS ]
+bash deploy.sh
+```
 
+Deploy with custom options
+```
 OPTIONS:
 -s|--nats-server    NATS server hostname/ip-address
 -d|--redis-server   REDIS server hostname/ip-address
@@ -56,7 +43,11 @@ OPTIONS:
                     Container image: ibmkubesat/kubesat:1.0
                     1 cubesat, 1 ground-station, 1 iot-sensor
 ```
+```sh
+bash deploy.sh [ OPTIONS ]
+```
 
-3. If DNS name was used, create CNAME record pointing to the canonical hostname of the default router in your OpenShift cluster. And go to the DNS name to launch the dashboard.
+
+If DNS name was used, create CNAME record pointing to the canonical hostname of the default router in your OpenShift cluster. And go to the DNS name to launch the dashboard.
 
 If DNS name was not used, go to the Route url to launch the dashboard.
