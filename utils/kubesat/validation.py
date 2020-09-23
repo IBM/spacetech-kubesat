@@ -1,7 +1,7 @@
 import asyncio
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
-from enum import Enum
+
 
 class MessageSchemas:
     """
@@ -202,7 +202,7 @@ class MessageSchemas:
         "required": ["data"],
         "properties": {
             "data": {
-            "type": "string"
+                "type": "string"
             }
         }
     }
@@ -231,7 +231,6 @@ class MessageSchemas:
         }
     }
 
-
     ORBIT_MESSAGE = {
         "name": "orbit_message",
         "type": "object",
@@ -258,10 +257,10 @@ class MessageSchemas:
                     "id": {
                         "type": "string"
                     },
-                    "orbit":{
+                    "orbit": {
                         "type": "object",
                         "additionalProperties": False,
-                        "required": ["eccentricity", "semimajor_axis", "inclination", "perigee_argument", "right_ascension_of_ascending_node", "anomaly","anomaly_type", "orbit_update_date", "frame","attitude"],
+                        "required": ["eccentricity", "semimajor_axis", "inclination", "perigee_argument", "right_ascension_of_ascending_node", "anomaly", "anomaly_type", "orbit_update_date", "frame", "attitude"],
                         "properties": {
                             "eccentricity": {
                                 "type": "number",
@@ -281,7 +280,7 @@ class MessageSchemas:
                             "anomaly": {
                                 "type": "number"
                             },
-                            "anomaly_type":{
+                            "anomaly_type": {
                                 "type": "string"
                             },
                             "orbit_update_date": {
@@ -290,8 +289,8 @@ class MessageSchemas:
                             "frame": {
                                 "type": "string"
                             },
-                            "attitude":{
-                                "type":"string"
+                            "attitude": {
+                                "type": "string"
                             }
                         }
                     }
@@ -321,16 +320,16 @@ class MessageSchemas:
             "data": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["id", "attitude","time"],
+                "required": ["id", "attitude", "time"],
                 "properties": {
                     "id": {
-                        "type":"string"
+                        "type": "string"
                     },
                     "attitude": {
-                        "type":"string"
+                        "type": "string"
                     },
-                    "time":{
-                        "type":"string"
+                    "time": {
+                        "type": "string"
                     }
                 }
             }
@@ -356,12 +355,12 @@ class MessageSchemas:
                 "type": "string"
             },
             "data": {
-                "type":"object",
+                "type": "object",
                 "additionalProperties": False,
                 "required": ["time"],
                 "properties": {
                     "time": {
-                        "type":"string"
+                        "type": "string"
                     }
                 }
             }
@@ -375,7 +374,7 @@ class MessageSchemas:
         "required": ["data"],
         "properties": {
             "data": {
-            "type": "string"
+                "type": "string"
             }
         }
     }
@@ -387,32 +386,32 @@ class MessageSchemas:
         "required": ["data"],
         "properties": {
             "data": {
-            "type": "string"
+                "type": "string"
             }
         }
     }
 
     CLUSTER_MESSAGE = {
-        "name":"cluster_message",
-        "type":"object",
+        "name": "cluster_message",
+        "type": "object",
         "additionalProperties": False,
-            "required": ["sender_ID", "origin_ID", "data", "time_sent", "message_type"],
-        "properties":{
-            "sender_ID":{
+        "required": ["sender_ID", "origin_ID", "data", "time_sent", "message_type"],
+        "properties": {
+            "sender_ID": {
                 "type": "string"
-                },
-            "origin_ID":{
+            },
+            "origin_ID": {
                 "type": "string"
-                },
-            "data":{
+            },
+            "data": {
                 "type": "object"
-                },
-            "time_sent":{
+            },
+            "time_sent": {
                 "type": "string"
-                },
+            },
             "message_type": {
-                "type":"string"
-                }
+                "type": "string"
+            }
         }
     }
 
@@ -512,13 +511,13 @@ class MessageSchemas:
                 "required": ["latitude", "longitude", "altitude"],
                 "properties": {
                     "latitude": {
-                        "type":"number"
+                        "type": "number"
                     },
                     "longitude": {
-                        "type":"number"
+                        "type": "number"
                     },
-                    "altitude":{
-                        "type":"number"
+                    "altitude": {
+                        "type": "number"
                     }
                 }
             }
@@ -822,7 +821,6 @@ class MessageSchemas:
         }
     }
 
-
     TRANSMISSION_MODE_MESSAGE = {
         "name": "transmission_mode_message",
         "type": "object",
@@ -899,10 +897,9 @@ class MessageSchemas:
         }
     }
 
-
     CESIUM_SAT_PACKET = {
-        "name":"cesium_sat_packet",
-        "type":"object",
+        "name": "cesium_sat_packet",
+        "type": "object",
         "additionalProperties": False,
         "required": ["data", "sender_ID", "time_sent", "origin_ID", "message_type"],
         "properties": {
@@ -925,8 +922,8 @@ class MessageSchemas:
     }
 
     CESIUM_SAT2SAT_PACKET = {
-        "name":"cesium_sat2sat_packet",
-        "type":"object",
+        "name": "cesium_sat2sat_packet",
+        "type": "object",
         "additionalProperties": False,
         "required": ["data", "sender_ID", "time_sent", "origin_ID", "message_type"],
         "properties": {
@@ -949,8 +946,8 @@ class MessageSchemas:
     }
 
     CESIUM_GRSTN2SAT_PACKET = {
-        "name":"cesium_grstn2sat_packet",
-        "type":"object",
+        "name": "cesium_grstn2sat_packet",
+        "type": "object",
         "additionalProperties": False,
         "required": ["data", "sender_ID", "time_sent", "origin_ID", "message_type"],
         "properties": {
@@ -971,6 +968,7 @@ class MessageSchemas:
             }
         }
     }
+
 
 class SharedStorageSchemas:
     """
@@ -1039,10 +1037,10 @@ class SharedStorageSchemas:
             "iot_phonebook": {
                 "type": "object"
             },
-            "grstns":{
+            "grstns": {
                 "type": "object"
             },
-            "iots":{
+            "iots": {
                 "type": "object"
             },
             "grstn_phonebook": {
@@ -1115,7 +1113,7 @@ class SharedStorageSchemas:
             "ip_map": {
                 "type": "object"
             },
-            "ip_cluster_map" : {
+            "ip_cluster_map": {
                 "type": "object"
             }
         }
@@ -1246,10 +1244,10 @@ class SharedStorageSchemas:
             "grstns": {
                 "type": "object"
             },
-            "iots":{
+            "iots": {
                 "type": "object"
             },
-            "time":{
+            "time": {
                 "type": "string"
             },
             "range": {
@@ -1258,7 +1256,7 @@ class SharedStorageSchemas:
             "packet_duration": {
                 "type": "number",
             },
-            "packet_frequency_counter":{
+            "packet_frequency_counter": {
                 "type": "number"
             },
             "generic": {
@@ -1276,7 +1274,7 @@ def validate_json(data, schema):
         schema: json schema
     """
     # TODO: Adapt to overarching exception handling strategy
-    validate(instance=data, schema = schema)
+    validate(instance=data, schema=schema)
     return True
 
 
@@ -1292,6 +1290,7 @@ def check_omni_in_range(callback_function):
             await callback_function(msg, nats, shared_storage, logger)
     return decorator
 
+
 def check_pointing(callback_function):
     """
     Check to see whether the message comes from an object pointing at an object
@@ -1303,6 +1302,7 @@ def check_pointing(callback_function):
         if msg.sender_id in shared_storage["pointing"]:
             await callback_function(msg, nats, shared_storage, logger)
     return decorator
+
 
 def check_pointing_data(msg, nats, shared_storage, logger):
     """
@@ -1319,6 +1319,7 @@ def check_pointing_data(msg, nats, shared_storage, logger):
         return True
     return False
 
+
 def check_pointing_and_mode(msg, nats, shared_storage, logger):
     """
     Check to see whether the two nodes are pointing at each other and that the
@@ -1334,6 +1335,7 @@ def check_pointing_and_mode(msg, nats, shared_storage, logger):
         return True
     return False
 
+
 def check_internal(callback_function):
     """
     Check to see whether the message comes the same origin (ie: in the same node)
@@ -1346,6 +1348,7 @@ def check_internal(callback_function):
             await callback_function(msg, nats, shared_storage, logger)
     return decorator
 
+
 def check_internal_data(msg, nats, shared_storage, logger):
     """
     Check to see whether the message comes the same origin (ie: in the same node)
@@ -1357,5 +1360,5 @@ def check_internal_data(msg, nats, shared_storage, logger):
         logger: logger object
     """
     if msg.sender_id == nats.sender_id:
-            return True
+        return True
     return False

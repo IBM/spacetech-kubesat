@@ -1,5 +1,3 @@
-import enum
-
 class ServiceTypes:
     Agriculture = "agriculture"
     Clock = "clock"
