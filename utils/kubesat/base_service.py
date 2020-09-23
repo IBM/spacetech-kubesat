@@ -19,27 +19,22 @@ from kubesat.validation import validate_json, MessageSchemas
 
 class BaseService():
     """
-    Class that provides functionality for registering callbacks on different NATS channels. This is the backbone of the 
-    simulation framework. It is responsible for connecting with NATS, Redis, loading configs, and running the python asyncio
-    event loop. This combines NATS and a FastAPI application and runs them in the same event loop, so that extending with 
-    more REST endpoints is possible in the future. Currently the REST API is just used for a special callbacks that are
-    meant to send data too large to be transmitted over NATS.
+    Class that provides functionality for registering callbacks on different NATS channels. It is responsible for connecting
+    with NATS, Redis, loading configs, and running the python asyncio event loop. This combines NATS and a FastAPI application
+    and runs them in the same event loop, so that extending with more REST endpoints is possible in the future. Currently, 
+    the REST API is just used for a special callbacks that are meant to send data too large to be transmitted over NATS.
     """
 
     def __init__(self, service_type: str, schema: dict, config_path: str = None):
         """
-        Initializes the base simulation. Registers two default NATS callbacks. One of them is on channel "simulation.timestep"
-        and just updates the current time internal to the simulation's NATS handler object. The other one is registered one
-        "node.status.{SERVICE_TYPE}.{SENDER_ID}" and provides a request response endpoint that can be pinged to see if the
-        service is alive.
+        Initializes the base service. It subscribes a subject "node.status.{SERVICE_TYPE}.{SENDER_ID}" and provides a request
+        response endpoint that can be pinged to see if the service is alive.
 
         Args:
-            service_type (string): Name of the service type for this simulation instance
-            schema (dict): Schema used to validate the shared_storage internal to this simulation instance.
+            service_type (string): Name of the service type for this instance
+            schema (dict): Schema used to validate the shared_storage internal to this instance.
             config_path (string, optional): Path to a config file. If not None, will be used to get the
-                sender_id and initial shared storage of this simulation instance once the BaseSimulation.run 
-                method is called
-
+            sender_id and initial shared storage of this instance once the BaseService.run method is called.
         """
 
         super().__init__()
@@ -58,11 +53,6 @@ class BaseService():
         self._registered_callbacks = []
         self._unsubscribe_nats_routes = []
 
-        # subscribing to timestep by default to update time in nats_handler
-        @self.subscribe_nats_callback("simulation.timestep", MessageSchemas.TIMESTEP_MESSAGE)
-        async def simulation_timepulse(message: Message, nats_handler: NatsHandler, shared_storage: dict, logger: JsonLogger):
-            nats_handler.time_sent = message.data["time"]
-
         # subscribing to node status by default to provide channel to ping and see whether service is alive
         @self.request_nats_callback(f"node.status.{self.service_type}.", MessageSchemas.STATUS_MESSAGE, append_sender_id=True)
         async def heartbeat(message: Message, nats_handler: NatsHandler, shared_storage: dict, logger: JsonLogger) -> Message:
@@ -78,7 +68,7 @@ class BaseService():
 
     async def _stop(self):
         """
-        Stops the simulation by unsubscribing the callbacks and disconnecting from the NATS server.
+        Stops the service by unsubscribing the callbacks and disconnecting from the NATS server.
         """
 
         for unsubscribe_route in self._unsubscribe_nats_routes:
@@ -87,12 +77,12 @@ class BaseService():
 
     def startup_callback(self, callback_function: Callable) -> Callable:
         """
-        Decorator used to register a callback that will be called at simulation startup in the BaseSimulation.run() method.
+        Decorator used to register a callback that will be called at service startup in the BaseService.run() method.
         The callback will be called with arguments nats_handler, shared_storage, logger (in that order). 
         There can only be one startup callback registered, so but subsequent calls will just overwrite the
         previously set callback. Usage example:
 
-        @base_simulation_instance.startup_callback 
+        @base_service_instance.startup_callback 
         async def sample_callback(nats_handler, shared_storage, logger):
             print("I am the startup callback")
 
@@ -108,10 +98,10 @@ class BaseService():
     def subscribe_nats_callback(self, channel: str, message_schema: dict) -> Callable:
         """
         Decorator used to register a callback for a specific NATS channel. The actual registration of
-        the callback with the NATS server happens when BaseSimulation.run() is called. Will call the callback
+        the callback with the NATS server happens when BaseService.run() is called. Will call the callback
         with arguments message, nats_handler, shared_storage, logger (in that order). Usage example:
 
-        @base_simulation_instance.subscribe_nats_callback("sample.route", MessageSchema)
+        @base_service_instance.subscribe_nats_callback("sample.route", MessageSchema)
         async def sample_callback(msg, nats, shared_storage, logger):
             print(msg.data)
 
@@ -125,7 +115,7 @@ class BaseService():
 
         def decorator(callback_function: Callable) -> Callable:
 
-            # wrap the callback so we can actually subscribe once the simulation runs
+            # wrap the callback so we can actually subscribe once the service runs
             async def subscription_wrapper():
 
                 async def callback_wrapper(msg):
@@ -171,11 +161,11 @@ class BaseService():
         callback registered using this decorator is expected to return an object of type Message which will
         be sent back via NATS to the sender. That implies that messages sent to the registered channel must
         be sent using NatsHandler.request_message. The actual registration of the callback with the NATS server 
-        happens when BaseSimulation.run() is called. If append_sender_id is True, the sender_id of the simulation
+        happens when BaseService.run() is called. If append_sender_id is True, the sender_id of the service
         object will be appended to the channel name. Will call the callback with arguments message, nats_handler, 
         shared_storage, logger (in that order). Usage example:
 
-        @base_simulation_instance.request_nats_callback("sample-route", MessageSchema, append_sender_id=True)
+        @base_service_instance.request_nats_callback("sample-route", MessageSchema, append_sender_id=True)
         async def sample_callback(msg, nats, shared_storage, logger):
             print(msg.data)
 
@@ -183,7 +173,7 @@ class BaseService():
             channel (string): Name of the channel that the callback should be registered with.
             message_schema (dict): Schema to validate incoming messages against
             append_sender_id (bool): Indicates whether the sender_id should be appended to the channel name
-                at simulation runtime.
+                at service runtime.
 
 
         Returns:
@@ -192,7 +182,7 @@ class BaseService():
 
         def decorator(callback_function: Callable) -> Callable:
 
-            # wrap the callback so we can actually subscribe once the simulation runs
+            # wrap the callback so we can actually subscribe once the service runs
             async def request_wrapper() -> Callable:
 
                 async def callback_wrapper(msg):
@@ -245,11 +235,11 @@ class BaseService():
     def schedule_callback(self, timeout: float) -> Callable:
         """
         Decorator used to register a callback to be executed in a regular time interval. The actual registration of
-        the callback happens when BaseSimulation.run() is called, so the callback will not be active before then. 
+        the callback happens when BaseService.run() is called, so the callback will not be active before then. 
         Will call the callback with arguments nats_handler, shared_storage, logger (in that order). Usage example:
 
 
-        @base_simulation_instance.schedule_callback(1)
+        @base_service_instance.schedule_callback(1)
         async def sample_callback(nats, shared_storage, logger):
             print("hi"!)
 
@@ -262,7 +252,7 @@ class BaseService():
 
         def decorator(callback_function: Callable) -> Callable:
 
-            # wrap the callback so we can actually subscribe once the simulation runs
+            # wrap the callback so we can actually subscribe once the service runs
             async def subscription_wrapper():
 
                 async def callback_wrapper():
@@ -306,12 +296,12 @@ class BaseService():
         on channels attached to this callback should be done with NatsHandler.send_data(). Internall this callbacks expects messages
         of schema API_MESSAGE on the registered channel. It then extracts the host, port, and route for for the GET endpoint to get 
         the data, makes an HTTP request and parses the response into a Message object of schema message_schema. The actual registration 
-        of the callback with the NATS server happens when BaseSimulation.run() is called. Will call the callback
+        of the callback with the NATS server happens when BaseService.run() is called. Will call the callback
         with arguments message, nats_handler, shared_storage, logger (in that order). Optionally, you can provide a validator as a
         keyword argument, which should have the same function signature of a callback function and should return True or False depending
         on whether the message coming from the REST API should be processed. Usage example:
 
-        @base_simulation_instance.subscribe_data_callback("sample.route", MessageSchema, validator=some_validator_function)
+        @base_service_instance.subscribe_data_callback("sample.route", MessageSchema, validator=some_validator_function)
         async def sample_callback(msg, nats, shared_storage, logger):
             print(msg.data)
 
@@ -349,9 +339,8 @@ class BaseService():
 
     def run(self, nats_host="nats", nats_port="4222", nats_user=None, nats_password=None, api_host="127.0.0.1", api_port=8000, redis_host="redis", redis_port=6379, redis_password=None):
         """
-        Main entrypoint to starting the simulation. Will register all the callbacks with NATS and REST and start the event loop. Will first attempt to fetch a configuration json
-        containing the sender_id and initial shared_storage from a file, if that fails attempts to get it from redis, if that fails attempts to get it from a different
-        simulation that has a callback registered on channel "initialize.service". 
+        Main entrypoint to starting the service. Will register all the callbacks with NATS and REST and start the event loop. Will first attempt to fetch a configuration json
+        containing the sender_id and initial shared_storage from a file, if that fails attempts to get it from redis.
 
         Args:
             nats_host (str, optional): NATS server host. Defaults to "nats".
