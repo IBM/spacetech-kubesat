@@ -21,7 +21,7 @@ class BaseService():
     """
     Class that provides functionality for registering callbacks on different NATS channels. It is responsible for connecting
     with NATS, Redis, loading configs, and running the python asyncio event loop. This combines NATS and a FastAPI application
-    and runs them in the same event loop, so that extending with more REST endpoints is possible in the future. Currently, 
+    and runs them in the same event loop, so that extending with more REST endpoints is possible in the future. Currently,
     the REST API is just used for a special callbacks that are meant to send data too large to be transmitted over NATS.
     """
 
@@ -78,16 +78,16 @@ class BaseService():
     def startup_callback(self, callback_function: Callable) -> Callable:
         """
         Decorator used to register a callback that will be called at service startup in the BaseService.run() method.
-        The callback will be called with arguments nats_handler, shared_storage, logger (in that order). 
+        The callback will be called with arguments nats_handler, shared_storage, logger (in that order).
         There can only be one startup callback registered, so but subsequent calls will just overwrite the
         previously set callback. Usage example:
 
-        @base_service_instance.startup_callback 
+        @base_service_instance.startup_callback
         async def sample_callback(nats_handler, shared_storage, logger):
             print("I am the startup callback")
 
         Args:
-            callback_function (function): Async callback function that should be executed. 
+            callback_function (function): Async callback function that should be executed.
 
         Returns:
             function: The original function that was passed as argument
@@ -160,9 +160,9 @@ class BaseService():
         Decorator used to register a request callback for a specific NATS channel. This means that any
         callback registered using this decorator is expected to return an object of type Message which will
         be sent back via NATS to the sender. That implies that messages sent to the registered channel must
-        be sent using NatsHandler.request_message. The actual registration of the callback with the NATS server 
+        be sent using NatsHandler.request_message. The actual registration of the callback with the NATS server
         happens when BaseService.run() is called. If append_sender_id is True, the sender_id of the service
-        object will be appended to the channel name. Will call the callback with arguments message, nats_handler, 
+        object will be appended to the channel name. Will call the callback with arguments message, nats_handler,
         shared_storage, logger (in that order). Usage example:
 
         @base_service_instance.request_nats_callback("sample-route", MessageSchema, append_sender_id=True)
@@ -235,7 +235,7 @@ class BaseService():
     def schedule_callback(self, timeout: float) -> Callable:
         """
         Decorator used to register a callback to be executed in a regular time interval. The actual registration of
-        the callback happens when BaseService.run() is called, so the callback will not be active before then. 
+        the callback happens when BaseService.run() is called, so the callback will not be active before then.
         Will call the callback with arguments nats_handler, shared_storage, logger (in that order). Usage example:
 
 
@@ -294,8 +294,8 @@ class BaseService():
         """
         Decorator used to register a callback for a specific NATS channel that is used to send data via the REST API. Any broadcasting
         on channels attached to this callback should be done with NatsHandler.send_data(). Internall this callbacks expects messages
-        of schema API_MESSAGE on the registered channel. It then extracts the host, port, and route for for the GET endpoint to get 
-        the data, makes an HTTP request and parses the response into a Message object of schema message_schema. The actual registration 
+        of schema API_MESSAGE on the registered channel. It then extracts the host, port, and route for for the GET endpoint to get
+        the data, makes an HTTP request and parses the response into a Message object of schema message_schema. The actual registration
         of the callback with the NATS server happens when BaseService.run() is called. Will call the callback
         with arguments message, nats_handler, shared_storage, logger (in that order). Optionally, you can provide a validator as a
         keyword argument, which should have the same function signature of a callback function and should return True or False depending
@@ -336,6 +336,65 @@ class BaseService():
                             await self._logger.error(json.dumps(await response.json()))
             return callback_function
         return decorator
+
+    async def _load_config(self):
+        """
+        attempt to fetch a configuration json
+        containing the sender_id and initial shared_storage from a file, if that fails attempts to get it from redis.
+        """
+        if self.config_path is not None:
+
+            # if a path to a config file is given, initializes from there
+            with open(self.config_path, "r") as f:
+                config = json.load(f)
+
+            # get own sender_id from config
+            self.sender_id = config["sender_id"]
+
+            # validate the shared_storage section of the config
+            validate_json(config["shared_storage"], self._schema)
+            self.shared_storage = config["shared_storage"]
+
+            # write the shared storage and sender ID to Redis
+            self.redis_client.set_shared_storage(self.shared_storage)
+            self.redis_client.set_sender_id(self.sender_id)
+            print(
+                f"Successfully initialized {self.sender_id} {self.service_type} from file")
+        else:
+            try:
+                # requesting a config from the config service
+                message = self.nats_client.create_message(
+                    self.service_type, MessageSchemas.SERVICE_TYPE_MESSAGE)
+                print(
+                    f"Requesting config from config service for node {self.service_type}")
+                config_response = await self.nats_client.request_message("initialize.service", message, MessageSchemas.CONFIG_MESSAGE, timeout=3)
+                print(f"Got config from config service: {config_response}")
+                print(f"Validating ...")
+
+                # validate the shared storage section of the config
+                validate_json(
+                    config_response.data["shared_storage"], self._schema)
+                self.sender_id = config_response.data["sender_id"]
+                self.shared_storage = config_response.data["shared_storage"]
+
+                # write the shared storage and sender ID to Redis
+                self.redis_client.set_sender_id(self.sender_id)
+                self.redis_client.set_shared_storage(self.shared_storage)
+                print(
+                    f"Successfully initialized {self.sender_id} {self.service_type} from config service")
+            except:
+                try:
+                    # try initializing from redis
+                    self.sender_id = self.redis_client.get_sender_id()
+                    if not self.sender_id:
+                        raise ValueError(
+                            "Could not get sender id from redis")
+                    self.shared_storage = self.redis_client.get_shared_storage()
+                    print(
+                        f"Successfully initialized {self.sender_id} {self.service_type} from redis")
+                except Exception as e:
+                    raise ValueError(
+                        f"Failed to initialize from redis. Aborting. Error: {e}")
 
     def run(self, nats_host="nats", nats_port="4222", nats_user=None, nats_password=None, api_host="127.0.0.1", api_port=8000, redis_host="redis", redis_port=6379, redis_password=None):
         """
@@ -406,59 +465,7 @@ class BaseService():
                 self.nats_client, self.service_type)
 
             # retrieving initial shared_storage
-            if self.config_path is not None:
-
-                # if a path to a config file is given, initializes from there
-                with open(self.config_path, "r") as f:
-                    config = json.load(f)
-
-                # get own sender_id from config
-                self.sender_id = config["sender_id"]
-
-                # validate the shared_storage section of the config
-                validate_json(config["shared_storage"], self._schema)
-                self.shared_storage = config["shared_storage"]
-
-                # write the shared storage and sender ID to Redis
-                self.redis_client.set_shared_storage(self.shared_storage)
-                self.redis_client.set_sender_id(self.sender_id)
-                print(
-                    f"Successfully initialized {self.sender_id} {self.service_type} from file")
-            else:
-                try:
-                    # requesting a config from the config service
-                    message = self.nats_client.create_message(
-                        self.service_type, MessageSchemas.SERVICE_TYPE_MESSAGE)
-                    print(
-                        f"Requesting config from config service for node {self.service_type}")
-                    config_response = await self.nats_client.request_message("initialize.service", message, MessageSchemas.CONFIG_MESSAGE, timeout=3)
-                    print(f"Got config from config service: {config_response}")
-                    print(f"Validating ...")
-
-                    # validate the shared storage section of the config
-                    validate_json(
-                        config_response.data["shared_storage"], self._schema)
-                    self.sender_id = config_response.data["sender_id"]
-                    self.shared_storage = config_response.data["shared_storage"]
-
-                    # write the shared storage and sender ID to Redis
-                    self.redis_client.set_sender_id(self.sender_id)
-                    self.redis_client.set_shared_storage(self.shared_storage)
-                    print(
-                        f"Successfully initialized {self.sender_id} {self.service_type} from config service")
-                except:
-                    try:
-                        # try initializing from redis
-                        self.sender_id = self.redis_client.get_sender_id()
-                        if not self.sender_id:
-                            raise ValueError(
-                                "Could not get sender id from redis")
-                        self.shared_storage = self.redis_client.get_shared_storage()
-                        print(
-                            f"Successfully initialized {self.sender_id} {self.service_type} from redis")
-                    except Exception as e:
-                        raise ValueError(
-                            f"Failed to initialize from redis. Aborting. Error: {e}")
+            await self._load_config()
 
             # setting nats sender id
             self.nats_client.sender_id = self.sender_id

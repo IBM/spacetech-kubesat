@@ -1,3 +1,4 @@
+import asyncio
 from aiologger.loggers.json import JsonLogger
 
 from kubesat.base_service import BaseService
@@ -20,7 +21,9 @@ class BaseSimulation(BaseService):
         async def simulation_timepulse(message: Message, nats_handler: NatsHandler, shared_storage: dict, logger: JsonLogger):
             nats_handler.time_sent = message.data["time"]
 
+    async def _load_config(self):
         """
-        if that fails attempts to get it from a different
-        service that has a callback registered on channel "initialize.service". 
+        if the service fails to load the configuration from file and redis,  it attempts to get it from a different
+        service that has a callback registered on channel "initialize.service".
         """
+        await super()._load_config()
