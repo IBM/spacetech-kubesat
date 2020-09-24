@@ -26,30 +26,31 @@ class BaseSimulation(BaseService):
         Override _load_config to get the configuration from a cluster service that has a callback registered on channel "initialize.service"
         for simulation
         """
+
         try:
-            await super()._load_config()
+            # requesting a config from the config service
+            message = self.nats_client.create_message(
+                self.service_type, MessageSchemas.SERVICE_TYPE_MESSAGE)
+            print(
+                f"Requesting config from config service for node {self.service_type}")
+            config_response = await self.nats_client.request_message("initialize.service", message, MessageSchemas.CONFIG_MESSAGE, timeout=3)
+            print(f"Got config from config service: {config_response}")
+            print(f"Validating ...")
+
+            # validate the shared storage section of the config
+            validate_json(
+                config_response.data["shared_storage"], self._schema)
+            self.sender_id = config_response.data["sender_id"]
+            self.shared_storage = config_response.data["shared_storage"]
+
+            # write the shared storage and sender ID to Redis
+            self.redis_client.set_sender_id(self.sender_id)
+            self.redis_client.set_shared_storage(self.shared_storage)
+            print(
+                f"Successfully initialized {self.sender_id} {self.service_type} from config service")
         except:
             try:
-                # requesting a config from the config service
-                message = self.nats_client.create_message(
-                    self.service_type, MessageSchemas.SERVICE_TYPE_MESSAGE)
-                print(
-                    f"Requesting config from config service for node {self.service_type}")
-                config_response = await self.nats_client.request_message("initialize.service", message, MessageSchemas.CONFIG_MESSAGE, timeout=3)
-                print(f"Got config from config service: {config_response}")
-                print(f"Validating ...")
-
-                # validate the shared storage section of the config
-                validate_json(
-                    config_response.data["shared_storage"], self._schema)
-                self.sender_id = config_response.data["sender_id"]
-                self.shared_storage = config_response.data["shared_storage"]
-
-                # write the shared storage and sender ID to Redis
-                self.redis_client.set_sender_id(self.sender_id)
-                self.redis_client.set_shared_storage(self.shared_storage)
-                print(
-                    f"Successfully initialized {self.sender_id} {self.service_type} from config service")
+                await super()._load_config()
             except Exception as e:
                 raise ValueError(
-                    f"Failed to initialize from initialize.service. Aborting. Error: {e}")
+                    f"Failed to load configuration: {e}")
