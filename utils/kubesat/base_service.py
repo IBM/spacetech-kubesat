@@ -362,39 +362,17 @@ class BaseService():
                 f"Successfully initialized {self.sender_id} {self.service_type} from file")
         else:
             try:
-                # requesting a config from the config service
-                message = self.nats_client.create_message(
-                    self.service_type, MessageSchemas.SERVICE_TYPE_MESSAGE)
-                print(
-                    f"Requesting config from config service for node {self.service_type}")
-                config_response = await self.nats_client.request_message("initialize.service", message, MessageSchemas.CONFIG_MESSAGE, timeout=3)
-                print(f"Got config from config service: {config_response}")
-                print(f"Validating ...")
-
-                # validate the shared storage section of the config
-                validate_json(
-                    config_response.data["shared_storage"], self._schema)
-                self.sender_id = config_response.data["sender_id"]
-                self.shared_storage = config_response.data["shared_storage"]
-
-                # write the shared storage and sender ID to Redis
-                self.redis_client.set_sender_id(self.sender_id)
-                self.redis_client.set_shared_storage(self.shared_storage)
-                print(
-                    f"Successfully initialized {self.sender_id} {self.service_type} from config service")
-            except:
-                try:
-                    # try initializing from redis
-                    self.sender_id = self.redis_client.get_sender_id()
-                    if not self.sender_id:
-                        raise ValueError(
-                            "Could not get sender id from redis")
-                    self.shared_storage = self.redis_client.get_shared_storage()
-                    print(
-                        f"Successfully initialized {self.sender_id} {self.service_type} from redis")
-                except Exception as e:
+                # try initializing from redis
+                self.sender_id = self.redis_client.get_sender_id()
+                if not self.sender_id:
                     raise ValueError(
-                        f"Failed to initialize from redis. Aborting. Error: {e}")
+                        "Could not get sender id from redis")
+                self.shared_storage = self.redis_client.get_shared_storage()
+                print(
+                    f"Successfully initialized {self.sender_id} {self.service_type} from redis")
+            except Exception as e:
+                raise ValueError(
+                    f"Failed to initialize from redis. Aborting. Error: {e}")
 
     def run(self, nats_host="nats", nats_port="4222", nats_user=None, nats_password=None, api_host="127.0.0.1", api_port=8000, redis_host="redis", redis_port=6379, redis_password=None):
         """
