@@ -9,6 +9,27 @@ class MessageSchemas:
     Meant to be used on message objects (look at the message class for more info)
     """
 
+    MESSAGE = {
+        "name": "message",
+        "type": "object",
+        "additionalProperties": True,
+        "required": ["sender_ID", "time_sent", "origin_ID", "message_type", "data"],
+        "properties": {
+            "sender_ID": {
+                "type": "string",
+            },
+            "time_sent": {
+                "type": "string"
+            },
+            "origin_ID": {
+                "type": "string"
+            },
+            "message_type": {
+                "type": "string"
+            }
+        }
+    }
+
     CONFIG_MESSAGE = {
         "name": "config_message",
         "type": "object",
@@ -963,6 +984,11 @@ class SharedStorageSchemas:
     Json schemas for the shared storage dictionaries used by each microservice. Meant to validate
     that the shared storages from the config files have the right structure to be used by each service. 
     """
+
+    STORAGE = {
+        "type": "object",
+        "additionalProperties": True
+    }
 
     TEMPLATE_STORAGE = {
         "type": "object",
