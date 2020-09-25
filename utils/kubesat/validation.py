@@ -195,18 +195,6 @@ class MessageSchemas:
         }
     }
 
-    IP_ADDRESS_MESSAGE = {
-        "name": "ip_address_message",
-        "type": "object",
-        "additionalProperties": True,
-        "required": ["data"],
-        "properties": {
-            "data": {
-                "type": "string"
-            }
-        }
-    }
-
     SEND_DATA_MESSAGE = {
         "name": "send_data_message",
         "type": "object",
