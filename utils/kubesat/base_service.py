@@ -132,11 +132,11 @@ class BaseService():
                         shared_storage = self.shared_storage.copy()
 
                         # execute callback
-                        if len(signature(callback_function).parameters) == 3:
-                            await callback_function(msg, self.nats_client, shared_storage, self._logger)
-                        else:
+                        if len(signature(callback_function).parameters) == 5:
                             # include kubernetes_client
                             await callback_function(msg, self.nats_client, shared_storage, self._logger, self.kubernetes_client)
+                        else:
+                            await callback_function(msg, self.nats_client, shared_storage, self._logger)
 
                         # check whether the shared storage is still valid and set it if that is the case
                         if not validate_json(shared_storage, self._schema):
@@ -204,10 +204,10 @@ class BaseService():
                         shared_storage = self.shared_storage.copy()
 
                         # execute callback
-                        if len(signature(callback_function).parameters) == 3:
-                            response = await callback_function(msg, self.nats_client, shared_storage, self._logger)
-                        else:
+                        if len(signature(callback_function).parameters) == 5:
                             response = await callback_function(msg, self.nats_client, shared_storage, self._logger, self.kubernetes_client)
+                        else:
+                            response = await callback_function(msg, self.nats_client, shared_storage, self._logger)
 
                         # check whether the shared storage is still valid and set it if that is the case
                         if not validate_json(shared_storage, self._schema):
@@ -466,11 +466,11 @@ class BaseService():
 
             # execute startup callback
             if self._startup_callback:
-                if len(signature(self._startup_callback).parameters) == 3:
-                    await self._startup_callback(self.nats_client, self.shared_storage, self._logger)
-                else:
+                if len(signature(self._startup_callback).parameters) == 4:
                     # include kubernetes_client
                     await self._startup_callback(self.nats_client, self.shared_storage, self._logger, self.kubernetes_client)
+                else:
+                    await self._startup_callback(self.nats_client, self.shared_storage, self._logger)
 
         # registering the nats shutdown with the api server
         @self._api.on_event("shutdown")
