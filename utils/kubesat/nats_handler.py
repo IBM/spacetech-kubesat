@@ -3,11 +3,13 @@ import json
 from json import dumps, loads
 import secrets
 from queue import Queue
+from datetime import datetime
 
 from nats.aio.client import Client as NATS
 
 from kubesat.message import Message
 from kubesat.validation import MessageSchemas
+
 
 class NatsHandler:
     """
@@ -16,7 +18,6 @@ class NatsHandler:
     """
 
     def __init__(self, sender_id, host="nats", port="4222", user=None, password=None, api_host="127.0.0.1", api_port="8000", nc=NATS(), loop=asyncio.get_event_loop()):
-
         """
         Initializes NatsHandler.
 
@@ -60,13 +61,16 @@ class NatsHandler:
             Message: Message object populated with the data.
         """
         message_type = "unknown"
+        time_sent = self.time_sent
+        if not time_sent:
+            time_sent = datetime.now().isoformat(timespec='milliseconds')
         if "name" in schema.keys():
             message_type = schema["name"]
         return Message.decode_json({
             "sender_ID": self.sender_id,
             "origin_ID": self.sender_id,
             "message_type": message_type,
-            "time_sent": self.time_sent,
+            "time_sent": time_sent,
             "data": data
         }, schema)
 
@@ -109,7 +113,7 @@ class NatsHandler:
         """
         Subscribes to a topic if it is allowed and specifies a callback. The given callback should expect one
         argument representing the nats message. The message is loaded from json, so msg.data is a dictionary.
-        
+
         Args:
             topic (string): topic name
             callback (function): callback function (must be async)
@@ -130,7 +134,7 @@ class NatsHandler:
     async def unsubscribe_callback(self, topic, callback):
         """
         Unsubscribes callback from a topic.
-        
+
         Args:
             topic (string): Topic name to unsubscribe from
             callback (function): callback function to remove
@@ -148,7 +152,7 @@ class NatsHandler:
     async def connect(self):
         """
         Connects to the NATS server.
-        
+
         Returns:
             bool: True if successfully connected
         """
@@ -159,11 +163,11 @@ class NatsHandler:
     async def send_message(self, topic, message):
         """
         Sends a message to a channel
-        
+
         Args:
             topic (string): channel name to publish to
             message (object): message to send
-            
+
         Returns:
             bool: True if successfully sent message, False otherwise
         """
@@ -188,6 +192,8 @@ class NatsHandler:
 
         message.sender_id = self.sender_id
         message.time_sent = self.time_sent
+        if not message.time_sent:
+            message.time_sent = datetime.now().isoformat(timespec='milliseconds')
 
         data_id = secrets.token_urlsafe()
         self.data_table[data_id] = message
@@ -204,20 +210,21 @@ class NatsHandler:
 
         # schedule deletion of the data packet
         loop = asyncio.get_running_loop()
-        loop.create_task(self.delete_data_message(data_id, timeout=self.buffer_time))
+        loop.create_task(self.delete_data_message(
+            data_id, timeout=self.buffer_time))
 
         return True
 
     async def request_message(self, topic, message, schema, timeout=1):
         """
         Sends a request to a channel and returns the response.
-        
+
         Args:
             topic (string): channel name to publish to
             message (object): message to send
             schema (dict): Schema of the expected response
             timeout (int, optional): Timeout that limits how long to wait for a response. Defaults to 1.
-            
+
         Returns:
             object: returns the response.
         """
@@ -228,10 +235,10 @@ class NatsHandler:
     async def disconnect(self, cb=None):
         """
         Disconnects from the NATS server.
-        
+
         Args:
             cb (function, optional): Callback function to run after disconnecting. Defaults to None.
-            
+
         Returns:
             bool: True if successfully disconnected.
         """
