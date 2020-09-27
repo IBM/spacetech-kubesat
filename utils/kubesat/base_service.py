@@ -9,10 +9,12 @@ from functools import wraps
 from aiologger.loggers.json import JsonLogger
 from fastapi import FastAPI, Request, HTTPException
 from typing import Callable
+from inspect import signature
 
 from kubesat.message import Message
 from kubesat.nats_handler import NatsHandler
 from kubesat.redis_handler import RedisHandler
+from kubesat.kubernetes_handler import KubernetesHandler
 from kubesat.nats_logger import NatsLoggerFactory
 from kubesat.validation import validate_json, MessageSchemas
 
@@ -46,6 +48,7 @@ class BaseService():
         self.sender_id = None
         self.nats_client = None
         self.redis_client = None
+        self.kubernetes_client = None
         self._api = None
         self._logger = None
         self.shared_storage = None
@@ -129,7 +132,11 @@ class BaseService():
                         shared_storage = self.shared_storage.copy()
 
                         # execute callback
-                        await callback_function(msg, self.nats_client, shared_storage, self._logger)
+                        if len(signature(callback_function).parameters) == 3:
+                            await callback_function(msg, self.nats_client, shared_storage, self._logger)
+                        else:
+                            # include kubernetes_client
+                            await callback_function(msg, self.nats_client, shared_storage, self._logger, self.kubernetes_client)
 
                         # check whether the shared storage is still valid and set it if that is the case
                         if not validate_json(shared_storage, self._schema):
@@ -194,11 +201,13 @@ class BaseService():
                         msg = Message.decode_raw(msg.data, message_schema)
 
                         # temporarily copy shared storage, so callback cannot perform invalid changes
-
                         shared_storage = self.shared_storage.copy()
 
                         # execute callback
-                        response = await callback_function(msg, self.nats_client, shared_storage, self._logger)
+                        if len(signature(callback_function).parameters) == 3:
+                            response = await callback_function(msg, self.nats_client, shared_storage, self._logger)
+                        else:
+                            response = await callback_function(msg, self.nats_client, shared_storage, self._logger, self.kubernetes_client)
 
                         # check whether the shared storage is still valid and set it if that is the case
                         if not validate_json(shared_storage, self._schema):
@@ -374,7 +383,7 @@ class BaseService():
                 raise ValueError(
                     f"Failed to initialize from redis. Aborting. Error: {e}")
 
-    def run(self, nats_host="nats", nats_port="4222", nats_user=None, nats_password=None, api_host="127.0.0.1", api_port=8000, redis_host="redis", redis_port=6379, redis_password=None):
+    def run(self, nats_host="nats", nats_port="4222", nats_user=None, nats_password=None, api_host="127.0.0.1", api_port=8000, redis_host="redis", redis_port=6379, redis_password=None, kubernetes_config_file=None):
         """
         Main entrypoint to starting the service. Will register all the callbacks with NATS and REST and start the event loop. Will first attempt to fetch a configuration json
         containing the sender_id and initial shared_storage from a file, if that fails attempts to get it from redis.
@@ -389,6 +398,7 @@ class BaseService():
             redis_host (str, optional): Redis server host. Defaults to "redis".
             redis_port (int, optional): Redis server port. Defaults to 6379.
             redis_password (str, optional): Redis server password. Defaults to None.
+            kubernetes_config_file (str, optional): Kubernetes config file pah. Defaults to None.
         """
 
         self.nats_host = nats_host
@@ -404,6 +414,9 @@ class BaseService():
         # creating redis client
         self.redis_client = RedisHandler(
             self.service_type, self._schema, host=self.redis_host, port=self.redis_port, password=self.redis_password)
+
+        # creating kubernetes client
+        self.kubernetes_client = KubernetesHandler(kubernetes_config_file)
 
         # creating api
         self._api = FastAPI()
@@ -453,7 +466,11 @@ class BaseService():
 
             # execute startup callback
             if self._startup_callback:
-                await self._startup_callback(self.nats_client, self.shared_storage, self._logger)
+                if len(signature(self._startup_callback).parameters) == 3:
+                    await self._startup_callback(self.nats_client, self.shared_storage, self._logger)
+                else:
+                    # include kubernetes_client
+                    await self._startup_callback(self.nats_client, self.shared_storage, self._logger, self.kubernetes_client)
 
         # registering the nats shutdown with the api server
         @self._api.on_event("shutdown")
