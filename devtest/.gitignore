@@ -1,5 +1,0 @@
-*.yaml
-Dockerfile
-*.log
-setup.sh
-run-kubesat.sh
