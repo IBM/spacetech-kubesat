@@ -1,11 +1,8 @@
 import json
-import socket
 import asyncio
-import aiohttp
 import uvicorn
 import traceback
 import subprocess
-from functools import wraps
 from aiologger.loggers.json import JsonLogger
 from fastapi import FastAPI, Request, HTTPException
 from typing import Callable
@@ -39,7 +36,6 @@ class BaseService():
             sender_id and initial shared storage of this instance once the BaseService.run method is called.
         """
 
-        super().__init__()
         # initializing nats
 
         self.service_type = service_type
