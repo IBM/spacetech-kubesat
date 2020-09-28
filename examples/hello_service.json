@@ -1,0 +1,6 @@
+{
+    "sender_id": "node_01",
+    "shared_storage": {
+        "last_sent": ""
+    }
+}
