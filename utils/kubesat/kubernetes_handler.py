@@ -29,6 +29,12 @@ class KubernetesHandler:
             except:
                 raise RuntimeError(
                     'Can not initialize with in-cluster config.')
+        else:
+            try:
+                config.load_kube_config()
+                self.kubernetes = client.CoreV1Api()
+            except:
+                pass
 
     def get_pods(self):
         """
