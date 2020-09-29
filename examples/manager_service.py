@@ -8,8 +8,7 @@ metadata:
   name: services
   namespace: kube-system
 data:
-  hello: "hello:1.0"
-  weather: "weather:1.0"
+  hello: "hello-world:latest"
 ---
 """
 
@@ -39,7 +38,7 @@ async def send_availabilty_check_request(nats, shared_storage, logger):
         "type": "request",
         "function": "is_available",
         "parameters": {
-            "service": "weather"
+            "service": "hello-world"
         }
     }, MessageSchemas.MESSAGE)
 
