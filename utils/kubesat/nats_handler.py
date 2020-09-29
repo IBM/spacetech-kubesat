@@ -47,7 +47,7 @@ class NatsHandler:
         self.API_DATA_ROUTE = "/data"
         self.buffer_time = 5
 
-    def create_message(self, data, schema):
+    def create_message(self, data, schema: dict = MessageSchemas.MESSAGE):
         """
         Create a new message instance pre populated with the sender_ID and time known  to the nats_handler. 
         Uses the data arg as value for the "data" field and validates on the provided schema. Raises an exception

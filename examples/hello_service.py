@@ -1,12 +1,11 @@
 import asyncio
 import time
 
-from kubesat.validation import MessageSchemas, SharedStorageSchemas
 from kubesat.base_service import BaseService
 
 SERVICE_TYPE = 'hello'
-hello = BaseService(
-    SERVICE_TYPE, SharedStorageSchemas.STORAGE, './hello_service.json')
+hello = BaseService(service_type=SERVICE_TYPE,
+                    config_path='./service.json')
 
 
 @hello.schedule_callback(2)
@@ -20,16 +19,14 @@ async def send_hello_message(nats, shared_storage, logger):
         shared_storage (dict): dictionary that stores local data for the service
         logger (NatsLogger): logger that can be used to communicate the state of the system
     """
-    message = nats.create_message({
-        "message": "hello"
-    }, MessageSchemas.MESSAGE)
+    message = nats.create_message({"message": "hello"})
 
     # Send a hello message to public.hello subject
     await nats.send_message("public.hello", message)
     print(f"SEND : {message.encode_json()}")
 
 
-@hello.subscribe_nats_callback("public.hello",  MessageSchemas.MESSAGE)
+@hello.subscribe_nats_callback("public.hello")
 # Subscribe public.hello subject
 async def receive_ping_message(message, nats, shared_storage, logger):
     message_json = message.encode_json()

@@ -8,8 +8,7 @@ metadata:
   name: services
   namespace: kube-system
 data:
-  hello: "hello:1.0"
-  weather: "weather:1.0"
+  hello-world: "hello-world:latest"
 ---
 """
 
@@ -21,7 +20,7 @@ from kubesat.base_service import BaseService
 
 SERVICE_TYPE = 'manager'
 manager = BaseService(
-    SERVICE_TYPE, SharedStorageSchemas.STORAGE, './manager_service.json')
+    SERVICE_TYPE, SharedStorageSchemas.STORAGE, './service.json')
 
 
 @manager.schedule_callback(2)
@@ -29,17 +28,12 @@ manager = BaseService(
 async def send_availabilty_check_request(nats, shared_storage, logger):
     """
     Send availabiltiy check request
-
-    Args:
-        nats (NatsHandler): connection to nats used to send and receive messages
-        shared_storage (dict): dictionary that stores local data for the service
-        logger (NatsLogger): logger that can be used to communicate the state of the system
     """
     message = nats.create_message({
         "type": "request",
         "function": "is_available",
         "parameters": {
-            "service": "weather"
+            "service": "hello-world"
         }
     }, MessageSchemas.MESSAGE)
 

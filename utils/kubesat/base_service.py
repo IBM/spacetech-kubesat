@@ -13,7 +13,7 @@ from kubesat.nats_handler import NatsHandler
 from kubesat.redis_handler import RedisHandler
 from kubesat.kubernetes_handler import KubernetesHandler
 from kubesat.nats_logger import NatsLoggerFactory
-from kubesat.validation import validate_json, MessageSchemas
+from kubesat.validation import validate_json, MessageSchemas, SharedStorageSchemas
 
 
 class BaseService():
@@ -24,14 +24,14 @@ class BaseService():
     the REST API is just used for a special callbacks that are meant to send data too large to be transmitted over NATS.
     """
 
-    def __init__(self, service_type: str, schema: dict, config_path: str = None):
+    def __init__(self, service_type: str, schema: dict = SharedStorageSchemas.STORAGE, config_path: str = None):
         """
         Initializes the base service. It subscribes a subject "node.status.{SERVICE_TYPE}.{SENDER_ID}" and provides a request
         response endpoint that can be pinged to see if the service is alive.
 
         Args:
             service_type (string): Name of the service type for this instance
-            schema (dict): Schema used to validate the shared_storage internal to this instance.
+            schema (dict, optional): Schema used to validate the shared_storage internal to this instance.
             config_path (string, optional): Path to a config file. If not None, will be used to get the
             sender_id and initial shared storage of this instance once the BaseService.run method is called.
         """
@@ -94,7 +94,7 @@ class BaseService():
         self._startup_callback = callback_function
         return callback_function
 
-    def subscribe_nats_callback(self, channel: str, message_schema: dict) -> Callable:
+    def subscribe_nats_callback(self, channel: str, message_schema: dict = MessageSchemas.MESSAGE) -> Callable:
         """
         Decorator used to register a callback for a specific NATS channel. The actual registration of
         the callback with the NATS server happens when BaseService.run() is called. Will call the callback
@@ -106,7 +106,7 @@ class BaseService():
 
         Args:
             channel (string): Name of the channel that the callback should be registered with.
-            message_schema (dict): Schema to validate incoming messages against
+            message_schema (dict, optional): Schema to validate incoming messages against
 
         Returns:
             function: Returns decorator function that takes in the actual callback.
@@ -158,7 +158,7 @@ class BaseService():
             return callback_function
         return decorator
 
-    def request_nats_callback(self, channel: str, message_schema: dict, append_sender_id: bool = True) -> Callable:
+    def request_nats_callback(self, channel: str, message_schema: dict = MessageSchemas.MESSAGE, append_sender_id: bool = True) -> Callable:
         """
         Decorator used to register a request callback for a specific NATS channel. This means that any
         callback registered using this decorator is expected to return an object of type Message which will
