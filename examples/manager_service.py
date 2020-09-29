@@ -1,3 +1,18 @@
+"""
+Available service list is in 'services' configmap in 'kube-system' namespace. If you don't have the 
+services configmap, create a new one. The following is an example:
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: services
+  namespace: kube-system
+data:
+  hello: "hello:1.0"
+  weather: "weather:1.0"
+---
+"""
+
 import asyncio
 import time
 
@@ -24,7 +39,7 @@ async def send_availabilty_check_request(nats, shared_storage, logger):
         "type": "request",
         "function": "is_available",
         "parameters": {
-            "service": "weather_service"
+            "service": "weather"
         }
     }, MessageSchemas.MESSAGE)
 
