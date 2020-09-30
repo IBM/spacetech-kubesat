@@ -30,7 +30,7 @@ python setup.py install
 
 ## Environment setup
 
-KubeSat package requires NATs server and Redis server. You can install and start them on your local system. The followings are examples to use Docker:
+KubeSat package requires NATs server and Redis server. You can install and start them on your local system. If docker is installed and running, you can use the following commands:
 
 Start NATs server.
 

@@ -31,46 +31,16 @@ A template service is provided as a starting point to write new services and add
 * [Ground](/simulation/ground)
 * [IoT](/simulation/iot)
 
-### Technical Architecture
-KubeSat technical architecture is available [here](https://ibm-kubesat.gitbook.io/kubesat/project-architecture/overview)
-
 ### Getting Started
-Setup development environment bootstrapped in a docker container.
+Try local deployment by following [simulation quick start](/docs/simulation-quick-start.md)
 
-### Pre-requisite
-Docker should be installed and running on your machine.
-
-### Instructions
-
-By default, code from `master` branch will be cloned to `/tmp/spacetech-kubesat` folder on your machine.
-```bash
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/simulation/devtest/bootstrap.sh | sh
-```
-
-Use following commands to bootstrap your devtest environment with custom options.
-
-- Pull code from a specific branch
-```
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/simulation/devtest/bootstrap.sh | sh -s -- -b <branch-name>
-```
-- Clone git repo to a specific folder
-```
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/simulation/devtest/bootstrap.sh | sh -s -- -r <folder-name>
-```
-
-Post-bootstrap, all kubesat services are running with dashboard at http://localhost:8080
-
-Logs for each service can be found in `devtest` folder.
-
-After making any code changes, run `docker exec -t dev-kubesat bash run.sh` to reload kubesat services with code updates.
-
-
-### Helpful Links
+### Links
+* Simulation technical architecture is available [here](https://ibm-kubesat.gitbook.io/kubesat/project-architecture/overview)
 * [Documentation](https://ibm-kubesat.gitbook.io/kubesat/)
 * [Personalize KubeSat](https://ibm-kubesat.gitbook.io/kubesat/personalize-to-your-use-case)
 
 
-### Maintainers
+### Contacts
 
 * Moritz Stephan ([GitHub](https://github.com/austrian-code-wizard) | [LinkedIn](https://www.linkedin.com/in/moritz-stephan))
 * Flynn Dreilinger ([Github](https://github.com/polygnomial) | [LinkedIn](https://www.linkedin.com/in/flynnd))

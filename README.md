@@ -33,7 +33,7 @@ To develop a new service, start with [getting-started](/docs/getting-started.md)
 
 To deploy the simulation, try [simulation quick start](/docs/simulation-quick-start.md).
 
-There are examples on [examples](/examples)
+There are examples in [examples](/examples).
 
 ## License
 
