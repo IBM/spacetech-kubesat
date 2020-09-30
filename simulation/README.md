@@ -1,8 +1,6 @@
-# <img src="assets/IBMSpaceTechStarLogo.png" width="900">
-# 🛰️ KubeSat 🛰️
-IBM SpaceTech KubeSat is an open source project for building a cognitive, autonomous framework for satellite constellations and swarms. KubeSat allows for the simulation and optimization of multi-satellite communications.
+# KubeSat Simulation
 
-This project simulates accurate orbital mechanics for each object via [OreKit](https://www.orekit.org); uses these calculations to place restrictions on communications between satellites, groundstation, and ground sensors; incorporates [NATS.io](https://nats.io) messaging services; and publishes these communications for visualization on a web dashboard built using Cesium and Carbon.
+KubeSat Simulation simulates accurate orbital mechanics for each object via [OreKit](https://www.orekit.org); uses these calculations to place restrictions on communications between satellites, groundstation, and ground sensors; incorporates [NATS.io](https://nats.io) messaging services; and publishes these communications for visualization on a web dashboard built using Cesium and Carbon.
 
 ## Overview
 KubeSat consists of a combination of microservices that interact with each other using NATS messaging. These services are distributed between Satellite and Groundstation nodes, and are grouped into three categories - Simulation, Satellite, and IoT/Ground station.
