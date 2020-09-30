@@ -10,27 +10,26 @@ Simulation services include clock, config, logging, czml, dashboard, and cluster
 A template service is provided as a starting point to write new services and additional utility libraries.  
 
 #### Utilities
-* [Utils](utils)
-* [Template Service](template)
+* [Template Service](/simulation/template)
 
 #### Simulation
-* [Clock](clock)
-* [Cluster](cluster)
-* [Config](config)
-* [CZML](czml)
-* [Logging](logging)
-* [Dashboard](https://github.com/IBM/spacetech-kubesat/dashboard)
+* [Clock](/simulation/clock)
+* [Cluster](/simulation/cluster)
+* [Config](/simulation/config)
+* [CZML](/simulation/czml)
+* [Logging](/simulation/logging)
+* [Dashboard](/simulation/dashboard)
 
 #### Satellite
-* [Agriculture](agriculture)
-* [Data](data)
-* [Orbits](orbits)
-* [Reinforcement Learning](rl)
-* [Reinforcement Learning Training Agent](rl-training)
+* [Agriculture](/simulation/agriculture)
+* [Data](/simulation/data)
+* [Orbits](/simulation/orbits)
+* [Reinforcement Learning](/simulation/rl)
+* [Reinforcement Learning Training Agent](/simulation/rl-training)
 
 #### IoT & Ground
-* [Ground](ground)
-* [IoT](iot)
+* [Ground](/simulation/ground)
+* [IoT](/simulation/iot)
 
 ### Technical Architecture
 KubeSat technical architecture is available [here](https://ibm-kubesat.gitbook.io/kubesat/project-architecture/overview)
