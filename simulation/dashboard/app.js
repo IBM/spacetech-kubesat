@@ -16,7 +16,7 @@ var argv = require('minimist')(process.argv.slice(2));
 
 var nats_user = ''
 var nats_password = ''
-var nats_host = 'nats'
+var nats_host = 'host.docker.internal'
 var nats_port = 4222
 var api_port = 8080
 
