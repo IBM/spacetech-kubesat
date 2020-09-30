@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="kubesat",
-    version="1.0",
+    version="0.3",
     url="https://github.com/IBM/spacetech-kubesat",
     packages=find_packages(
         exclude=[

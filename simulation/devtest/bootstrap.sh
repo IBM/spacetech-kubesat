@@ -51,7 +51,7 @@ git clone https://github.com/IBM/spacetech-kubesat \
   --branch ${git_branch} --single-branch ${kubesat_repo}
 
 # create kubesat conda env
-cat <<EOF >${kubesat_repo}/devtest/conda-manifest.yaml
+cat <<EOF >${kubesat_repo}/simulation/devtest/conda-manifest.yaml
 channels:
   - anaconda
   - defaults
@@ -77,12 +77,12 @@ dependencies:
 EOF
 
 # create kubesat setup
-cat <<EOF >${kubesat_repo}/devtest/setup.sh
+cat <<EOF >${kubesat_repo}/simulation/devtest/setup.sh
 #!/bin/bash
 apk update
 apk --no-cache add git bash curl wget unzip tar git vim docker
 echo "setting up conda environment..."
-conda env create -n kubesat -f ${kubesat_repo}/devtest/conda-manifest.yaml
+conda env create -n kubesat -f ${kubesat_repo}/simulation/devtest/conda-manifest.yaml
 [ $? -eq 0 ] && conda init bash
 source /home/anaconda/.profile
 conda activate kubesat
@@ -93,7 +93,7 @@ wget https://gitlab.orekit.org/orekit/orekit-data/-/archive/master/orekit-data-m
 EOF
 
 # run kubesat
-cat <<EOF >${kubesat_repo}/devtest/run.sh
+cat <<EOF >${kubesat_repo}/simulation/devtest/run.sh
 #!/bin/bash
 
 kubesat_repo=${kubesat_repo}
@@ -114,13 +114,13 @@ docker rm dev-nats
 docker run -d --name dev-nats -p 4222:4222 nats
 nats=\$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' dev-nats)
 
-cd \${kubesat_repo}/utils && python setup.py install
+cd \${kubesat_repo}/ && python setup.py install
 simhost=\$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' dev-kubesat)
 port=8001
 
 start_svc() {
   echo "Starting service \$1..."
-  cd \${kubesat_repo}/\$1 && nohup python -u run.py -a \$simhost -s \$nats -d \$redis -t \$port > \${kubesat_repo}/devtest/\$1.log &
+  cd \${kubesat_repo}/simulation/\$1 && nohup python -u run.py -a \$simhost -s \$nats -d \$redis -t \$port > \${kubesat_repo}/simulation/devtest/\$1.log &
   echo "\$! \$1"
   port=\$(( port+ 1 )) && sleep 5
 }
@@ -149,7 +149,7 @@ done
 # dashboard service
 dashboard_imgid=\$(docker images -q kubesat-dashboard:1.0)
 [[ -n "\$dashboard_imgid" ]] || \
-docker build \${kubesat_repo}/dashboard -t kubesat-dashboard:1.0
+docker build \${kubesat_repo}/simulation/dashboard -t kubesat-dashboard:1.0
 docker stop dev-dashboard
 docker rm dev-dashboard
 docker run -d --name dev-dashboard -p 8080:8080 kubesat-dashboard:1.0 node app.js -s \$nats
@@ -165,10 +165,10 @@ echo "docker exec -t dev-kubesat bash run.sh"
 EOF
 
 # create dockerfile
-cat <<EOF >${kubesat_repo}/devtest/Dockerfile
+cat <<EOF >${kubesat_repo}/simulation/devtest/Dockerfile
 FROM continuumio/miniconda3:4.8.2-alpine
 USER root
-WORKDIR ${kubesat_repo}/devtest
+WORKDIR ${kubesat_repo}/simulation/devtest
 EXPOSE 8080
 ENV PYTHONDONTWRITEBYTECODE=true
 ENV PATH /opt/conda/condabin:\$PATH
@@ -176,7 +176,7 @@ ENV PATH /opt/conda/envs/kubesat/bin/:\$PATH
 EOF
 
 # build
-docker build -t dev-kubesat:1.0 ${kubesat_repo}/devtest
+docker build -t dev-kubesat:1.0 ${kubesat_repo}/simulation/devtest
 docker stop dev-kubesat
 docker rm dev-kubesat
 docker run --name dev-kubesat -td \

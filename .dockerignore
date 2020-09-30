@@ -234,3 +234,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# simulation folder
+simulation

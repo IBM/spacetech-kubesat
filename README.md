@@ -1,82 +1,42 @@
-# <img src="assets/IBMSpaceTechStarLogo.png" width="900">
-# 🛰️ KubeSat 🛰️
-IBM SpaceTech KubeSat is an open source project for building a cognitive, autonomous framework for satellite constellations and swarms. KubeSat allows for the simulation and optimization of multi-satellite communications.
+<img src="assets/IBMSpaceTechStarLogo.png" width="900">
 
-This project simulates accurate orbital mechanics for each object via [OreKit](https://www.orekit.org); uses these calculations to place restrictions on communications between satellites, groundstation, and ground sensors; incorporates [NATS.io](https://nats.io) messaging services; and publishes these communications for visualization on a web dashboard built using Cesium and Carbon.
+# KubeSat
 
-## Overview
-KubeSat consists of a combination of microservices that interact with each other using NATS messaging. These services are distributed between Satellite and Groundstation nodes, and are grouped into three categories - Simulation, Satellite, and IoT/Ground station.
+KubeSat is an open-source project for building a cognitive, autonomous framework for satellite constellations and swarms. It provides the framework needed to develop and operate tasks to be performed on Satellite. Also, it allows for the simulation and optimization of multi-satellite communications.
 
-Simulation services include clock, config, logging, czml, dashboard, and cluster. IoT/Groundstation services include iot and groundstation services. Satellite services include orbits, data, reinforcement learning, RL training. Agriculture is the application use-case with associated service named agriculture running on each satellite node.
+## How It Works 
 
-A template service is provided as a starting point to write new services and additional utility libraries.  
+KubeSat provides a framework to manage services for devices.
 
-#### Utilities
-* [Utils](utils)
-* [Template Service](template)
+### Architecture
 
-#### Simulation
-* [Clock](clock)
-* [Cluster](cluster)
-* [Config](config)
-* [CZML](czml)
-* [Logging](logging)
-* [Dashboard](https://github.com/IBM/spacetech-kubesat/dashboard)
+<div  align="center">
+<img src="./assets/kubesat-diagram.png" width = "85%" align="center">
+</div>
 
-#### Satellite
-* [Agriculture](agriculture)
-* [Data](data)
-* [Orbits](orbits)
-* [Reinforcement Learning](rl)
-* [Reinforcement Learning Training Agent](rl-training)
+### KubeSat environment
 
-#### IoT & Ground
-* [Ground](ground)
-* [IoT](iot)
+- __NATs server__ : NATs are messaging services that support a variety of network topologies. For KubeSat to communicate through NATs, a NATs cluster must be configured in advance. Refer to [NATs Cluster Configuration](https://docs.nats.io/nats-server/configuration/clustering) for NATs cluster configuration.
+- __Kubernetes API__ : Kubernetes is a run-time environment to execute services. KubeSat uses Kubernetes API to manage Services in Kubernetes.
 
-### Technical Architecture
-KubeSat technical architecture is available [here](https://ibm-kubesat.gitbook.io/kubesat/project-architecture/overview)
+### KubeSat library
 
-### Getting Started
-Setup development environment bootstrapped in a docker container.
+- __Resource Manager__: Resource Manager monitors jobs and system resources in the Kubernetes and performs a new task as Kubernetes Jobs upon request.
+ - __Service__: A service runs as a Kubernetes Job. It can be a general container for Kubernetes or a container developed using the KubeSat library.
+ - __Service Information__: Stores available service information that can be performed.
 
-### Pre-requisite
-Docker should be installed and running on your machine.
+### KubeSat Simulation
 
-### Instructions
+KubeSat Simulation is developed using KubeSat library to simulate multi-satellite communications. It simulates accurate orbital mechanics for each object via OreKit; uses these calculations to place restrictions on communications between satellites, groundstation, and ground sensors; incorporates NATS.io messaging services; and publishes these communications for visualization on a web dashboard built using Cesium and Carbon. Refer to [KubeSat Simulation](/simulation/) to see the detail.
 
-By default, code from `master` branch will be cloned to `/tmp/spacetech-kubesat` folder on your machine.
-```bash
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/devtest/bootstrap.sh | sh
-```
+## Getting Started
 
-Use following commands to bootstrap your devtest environment with custom options.
+To develop a new service, start with [getting-started](/docs/getting-started.md).
 
-- Pull code from a specific branch
-```
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/devtest/bootstrap.sh | sh -s -- -b <branch-name>
-```
-- Clone git repo to a specific folder
-```
-curl -sSL https://raw.githubusercontent.com/IBM/spacetech-kubesat/master/devtest/bootstrap.sh | sh -s -- -r <folder-name>
-```
+To deploy the simulation, try [simulation quick start](/docs/simulation-quick-start.md).
 
-Post-bootstrap, all kubesat services are running with dashboard at http://localhost:8080
+There are examples on [examples](/examples)
 
-Logs for each service can be found in `devtest` folder.
+## License
 
-After making any code changes, run `docker exec -t dev-kubesat bash run.sh` to reload kubesat services with code updates.
-
-
-### Helpful Links
-* [Documentation](https://ibm-kubesat.gitbook.io/kubesat/)
-* [Personalize KubeSat](https://ibm-kubesat.gitbook.io/kubesat/personalize-to-your-use-case)
-
-
-### Maintainers
-
-* Moritz Stephan ([GitHub](https://github.com/austrian-code-wizard) | [LinkedIn](https://www.linkedin.com/in/moritz-stephan))
-* Flynn Dreilinger ([Github](https://github.com/polygnomial) | [LinkedIn](https://www.linkedin.com/in/flynnd))
-* Ian Chang ([GitHub](https://github.com/iannchang) | [LinkedIn](https://www.linkedin.com/in/ianchang2000/))
-* Grant Regen ([GitHub](https://github.com/grantregen) | [LinkedIn](https://www.linkedin.com/in/grant-regen))
-* Jesus Meza ([GitHub](https://github.com/jemeza) | [LinkedIn](https://www.linkedin.com/in/jesusmero/))
+KubeSat is licensed under the Apache 2.0 license. Full license text is available at [LICENSE](LICENSE).
