@@ -35,6 +35,8 @@ To develop a new service, start with [getting-started](/docs/getting-started.md)
 
 To deploy the simulation, try [simulation quick start](/docs/simulation-quick-start.md).
 
+There are examples on [examples](/examples)
+
 ## License
 
 KubeSat is licensed under the Apache 2.0 license. Full license text is available at [LICENSE](LICENSE).
