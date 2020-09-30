@@ -3,6 +3,7 @@ import asyncio
 import uvicorn
 import traceback
 import subprocess
+import aiohttp
 from aiologger.loggers.json import JsonLogger
 from fastapi import FastAPI, Request, HTTPException
 from typing import Callable
