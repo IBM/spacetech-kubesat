@@ -2,16 +2,14 @@
 
 Follow this template to create a new service for the simulation, whether a new use-case or more advanced operations.
 
-## How To Create A Service
-
-#### hello world example
+## hello world example
 
 In this example we are going to create a new service called "hello world".
 
 Create a new service python file, in this case we will call our file hello_world_service.py
 Then insert the following sample code
 
-```
+```python
 import asyncio
 
 from kubesat.validation import MessageSchemas, SharedStorageSchemas
@@ -47,7 +45,7 @@ The last callback is "work_on_task" which is called when there is a message in t
 
 Create a config file, example:- hello_world_config.json.
 
-```
+```json
 {
     "sender_id": "hello_world",
     "shared_storage": {
@@ -60,7 +58,7 @@ This config file is passed as a paramter in the "hello_world_service.py" . Also 
 
 We then have to add our SharedStorageSchema in "utils/kubesat/validation.py" in the "SharedStorageSchemas" class.
 
-```
+```python
 HELLO_WORLD_STORAGE = {
         "type": "object",
         "additionalProperties": False,
@@ -75,7 +73,7 @@ HELLO_WORLD_STORAGE = {
 
 One more thing we need to do is to add/append 'HelloWorld' service to the ServiceTypes class in "util/kubesat/services.py".
 Add this line to the class:-
-```
+```python
 HelloWorld = "helloworld"
 ```
 
