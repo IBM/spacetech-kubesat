@@ -101,3 +101,5 @@ Start the application.
 ```sh
 python hello_service.py
 ```
+
+Congratulations! You completed KubeSat application development. You can continue the next example in [Manage Kubernetes Resources](manage-kubernetes-resources.md).  
