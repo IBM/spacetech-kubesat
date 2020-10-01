@@ -91,13 +91,6 @@ async def startup(nats_handler, shared_storage, logger):
     print(f"{SERVICE_TYPE} in {manager.sender_id} has started.")
 
 if __name__ == '__main__':
-    """
-    Start the manager service
-    If the service is in a kubernetes cluster, it uses kubernetes service account provided by the cluster
-    If OS environment has KUBECONFIG, the service uses it to initialize the kubernetes handler
-    If there is a kubernetes client configuration file, refer to the following example:
-    manager.run(kubernetes_config_file="[PATH_OF_KUBERNETES_CLIENT_CONFIGURATION_FILE")
-    """
     manager.run()
 
 ```
