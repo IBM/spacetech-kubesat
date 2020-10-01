@@ -4,9 +4,10 @@ KubeSat package provides functions to manage Kubernees resources. In this exampl
 
 Refer to [Getting Started](getting-started.md) and install the KubeSat package and spin up NATs and Redis.
 
-## Kubernetes configuration
+## Kubernetes cluster configuration
 
-To access the Kubernetes API, prepare a kubeconfig file. The following command export the kubeconfig file and save it as a filename `kubeconfig.yaml`
+Prepare a target Kubernetes cluster and log into the cluster using a kubectl command. 
+To access the Kubernetes API from outside, it is necessary to have a kubeconfig file. The following command exports the kubeconfig file and saves it as a filename `kubeconfig.yaml`
 
 ```sh
  kubectl config view --raw > kubeconfig.yaml
