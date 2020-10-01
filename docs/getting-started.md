@@ -99,5 +99,5 @@ The service requires configuration file to get a sender ID. Create `service.json
 Start the application. 
 
 ```sh
-python hello_service.py -s 127.0.0.1 -d 127.0.0.1
+python hello_service.py
 ```

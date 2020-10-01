@@ -380,7 +380,7 @@ class BaseService():
                 raise ValueError(
                     f"Failed to initialize from redis. Aborting. Error: {e}")
 
-    def run(self, nats_host="nats", nats_port="4222", nats_user=None, nats_password=None, api_host="127.0.0.1", api_port=8000, redis_host="redis", redis_port=6379, redis_password=None, kubernetes_config_file=None):
+    def run(self, nats_host="127.0.0.1", nats_port="4222", nats_user=None, nats_password=None, api_host="127.0.0.1", api_port=8000, redis_host="127.0.0.1", redis_port=6379, redis_password=None, kubernetes_config_file=None):
         """
         Main entrypoint to starting the service. Will register all the callbacks with NATS and REST and start the event loop. Will first attempt to fetch a configuration json
         containing the sender_id and initial shared_storage from a file, if that fails attempts to get it from redis.
