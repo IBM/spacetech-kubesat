@@ -15,7 +15,7 @@ To access the Kubernetes API from outside, it is necessary to have a kubeconfig 
 
 Available service list is stored as a ConfigMap. The following example contains a hello-world service with the container image `hello-world:latest`. Create `services.yaml` file with the following: 
 
-```json
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
