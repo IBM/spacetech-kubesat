@@ -1,3 +1,7 @@
+#
+# Copyright (C) 2020 IBM. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
 import asyncio
 import time
 
